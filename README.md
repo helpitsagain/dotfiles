@@ -11,7 +11,7 @@ cd dotfiles
 ```
 
 ```
-chmod +x config.sh
+chmod +x script.sh
 ```
 
 ```
