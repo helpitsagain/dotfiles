@@ -1,7 +1,7 @@
 #!bin/bash
 
 echo "Installing packages..."
-yay -S nvim tmux ranger
+sudo pacman -S nvim tmux ranger
 
 echo "Copying .bashrc to $HOME"
 cp -b home/bashrc $HOME/.bashrc
