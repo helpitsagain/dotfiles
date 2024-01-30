@@ -1,5 +1,7 @@
 # dotfiles
 
+currently this only works on arch-based distros, still figuring out bash scripting
+
 ```
 git clone https://github.com/helpitsagain/dotfiles
 ```
