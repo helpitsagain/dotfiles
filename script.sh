@@ -3,11 +3,17 @@
 echo "Installing packages..."
 sudo pacman -S nvim tmux ranger
 
+echo "Installing Oh My Posh!"
+curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/bin
+
 echo "Copying .bashrc to $HOME"
 cp -b home/bashrc $HOME/.bashrc
 
 echo "Copying .bash_aliases to $HOME"
 cp -b home/bash_aliases $HOME/.bash_aliases
+
+source $HOME/.bashrc
+source $HOME/.bash_aliases
 
 echo "Copying lazy.nvim to $HOME"
 cp -rb home/lazy.nvim $HOME/
