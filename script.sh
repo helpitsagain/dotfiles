@@ -1,10 +1,24 @@
 #!bin/bash
 
-echo "Installing packages..."
-sudo pacman -S nvim tmux ranger
+read -p "Do you want to install yay? [Y/n] " -i "Y" install_yay
+case $install_yay in 
+  "Y"|"y"|"") sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si ;
+    sleep 1 ;
+    yay -Y --gendb &*& yay -Syu --devel; break;;
+  "N"|"n") echo "Skipping installation";;
+esac
 
-echo "Installing Oh My Posh!"
-curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/bin
+read -p "Do you want to install neovim, tmux and ranger? [Y/n] " -i "Y" install_pkgs
+case $install_pkgs in 
+  "Y"|"y"|"") echo "Installing packages"; sudo pacman -S nvim tmux ranger; break;;
+  "N"|"n") echo "Skipping packages";;
+esac
+
+read -p "Do you want to install Oh My Posh? [Y/n] " -i "Y" install_omp
+case $install_omp in 
+  "Y"|"y"|"") echo "Installing Oh My Posh!"; curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/bin;;
+  "N"|"n") echo "Skipping Oh My Posh!";;
+esac
 
 echo "Copying .bashrc to $HOME"
 cp -b home/bashrc $HOME/.bashrc
@@ -27,3 +41,4 @@ cp -rb ./config/tmux $HOME/.config/tmux
 echo "Copying config/ranger to $HOME/.config"
 cp -rb ./config/ranger $HOME/.config/ranger
 export RANGER_LOAD_DEFAULT_RC=false
+
