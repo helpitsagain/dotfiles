@@ -16,7 +16,9 @@ esac
 
 read -p "Do you want to install Oh My Posh? [Y/n] " -i "Y" install_omp
 case $install_omp in 
-  "Y"|"y"|"") echo "Installing Oh My Posh!"; curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/bin;;
+  "Y"|"y"|"") echo "Installing Oh My Posh!"; 
+	  curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/bin;
+    cp -r config/oh-my-posh $HOME/.config/oh-my-posh;;
   "N"|"n") echo "Skipping Oh My Posh!";;
 esac
 
