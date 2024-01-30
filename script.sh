@@ -19,7 +19,7 @@ case $install_omp in
   "Y"|"y"|"") echo "Installing Oh My Posh!"; 
     mkdir $HOME/bin
 	  curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/bin;
-    cp -r config/oh-my-posh $HOME/.config/oh-my-posh;;
+    cp -r config/oh-my-posh $HOME/.config/;;
   "N"|"n") echo "Skipping Oh My Posh!";;
 esac
 
