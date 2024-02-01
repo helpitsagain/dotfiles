@@ -1,6 +1,7 @@
 # dotfiles
 
-currently this only works on arch-based distros, still figuring out bash scripting
+currently this only works on arch-based distros because I'm still figuring out bash scripting
+packages installed: nodejs, npm, neovim, tmux, ranger
 
 ```
 git clone https://github.com/helpitsagain/dotfiles
