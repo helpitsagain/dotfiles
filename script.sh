@@ -53,6 +53,8 @@ cp -rb ./config/nvim $HOME/.config/
 
 echo "Copying config/tmux to $HOME/.config"
 cp -rb ./config/tmux $HOME/.config/
+echo "Installing tmux plugin manager"
+git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 
 echo "Copying config/ranger to $HOME/.config"
 cp -rb ./config/ranger $HOME/.config/
