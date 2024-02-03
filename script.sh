@@ -13,11 +13,11 @@ elif command -v yum &>/dev/null; then
   distro="RHEL"
 fi
 
-if [ "$distro" == "Arch" ]; then
+if [ "$distro" = "Arch" ]; then
   while true; do
     read -p "Do you want to install yay? [y/N] " install_yay
     case "$install_yay" in
-    "y")
+    [Yy]*)
       cd "$HOME"
       sudo pacman -S --needed git base-devel
       git clone https://aur.archlinux.org/yay.git
@@ -28,7 +28,7 @@ if [ "$distro" == "Arch" ]; then
       cd "$dotfiles_dir"
       break
       ;;
-    "n" | "")
+    [Nn]* | "")
       echo "Skipping yay"
       break
       ;;
@@ -42,18 +42,18 @@ fi
 while true; do
   read -p "Do you want to install packages? [y/N] " install_pkgs
   case "${install_pkgs,,}" in
-  "y")
+  [Yy]*)
     echo "Installing packages"
-    if [ "$distro" == "Ubuntu" ]; then
+    if [ "$distro" = "Ubuntu" ]; then
       sudo apt install nodejs npm neovim tmux ranger neofetch
-    elif [ "$distro" == "Arch" ]; then
+    elif [ "$distro" = "Arch" ]; then
       sudo pacman -S nodejs npm neovim tmux ranger neofetch
-    elif [ "$distro" == "RHEL" ]; then
+    elif [ "$distro" = "RHEL" ]; then
       sudo yum install nodejs npm neovim tmux ranger neofetch
     fi
     break
     ;;
-  "n" | "")
+  [Nn]* | "")
     echo "Skipping packages"
     break
     ;;
@@ -66,13 +66,13 @@ done
 while true; do
   read -p "Do you want to install oh-my-posh? [y/N] " install_omp
   case "${install_omp,,}" in
-  "y")
+  [Yy]*)
     echo "Installing oh-my-posh"
-    if [ "$distro" == "Ubuntu" ]; then
+    if [ "$distro" = "Ubuntu" ]; then
       sudo apt install unzip
-    elif [ "$distro" == "Arch" ]; then
+    elif [ "$distro" = "Arch" ]; then
       sudo pacman -S unzip
-    elif [ "$distro" == "RHEL" ]; then
+    elif [ "$distro" = "RHEL" ]; then
       sudo yum install unzip
     fi
     mkdir "$HOME/bin"
@@ -80,7 +80,7 @@ while true; do
     cp -r config/oh-my-posh "$HOME/.config/"
     break
     ;;
-  "n" | "")
+  [Nn]* | "")
     echo "Skipping oh-my-posh"
     break
     ;;
