@@ -41,7 +41,7 @@ fi
 
 while true; do
   read -p "Do you want to install packages? [y/N] " install_pkgs
-  case "${install_pkgs,,}" in
+  case "$install_pkgs" in
   [Yy]*)
     echo "Installing packages"
     if [ "$distro" = "Ubuntu" ]; then
@@ -65,7 +65,7 @@ done
 
 while true; do
   read -p "Do you want to install oh-my-posh? [y/N] " install_omp
-  case "${install_omp,,}" in
+  case "$install_omp" in
   [Yy]*)
     echo "Installing oh-my-posh"
     if [ "$distro" = "Ubuntu" ]; then
