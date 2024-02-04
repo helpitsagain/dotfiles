@@ -44,7 +44,10 @@ while true; do
   [Yy]*)
     echo "Installing packages"
     if [ "$distro" = "Ubuntu" ]; then
-      sudo apt install -y neovim tmux ranger neofetch
+      sudo apt install -y tmux ranger neofetch
+      sudo add-apt-repository ppa:neovim-ppa/unstable
+      sudo apt update
+      sudo apt install -y neovim
     elif [ "$distro" = "Arch" ]; then
       sudo pacman -S neovim tmux ranger neofetch
     elif [ "$distro" = "RHEL" ]; then
@@ -54,32 +57,6 @@ while true; do
     ;;
   [Nn]* | "")
     echo "Skipping packages"
-    break
-    ;;
-  *)
-    echo "Invalid input. Please enter either \"y\" or \"n\", or leave input blank."
-    ;;
-  esac
-done
-
-while true; do
-  read -p "Do you want to install oh-my-posh? [y/N] " install_oh_my_posh
-  case "$install_oh_my_posh" in
-  [Yy]*)
-    echo "Installing oh-my-posh"
-    if [ "$distro" = "Ubuntu" ]; then
-      sudo apt install -y unzip
-    elif [ "$distro" = "Arch" ]; then
-      sudo pacman -S unzip
-    elif [ "$distro" = "RHEL" ]; then
-      sudo yum install -y unzip
-    fi
-    mkdir "$HOME/bin";
-    curl -s https://ohmyposh.dev/install.sh | bash -s -- -d "$HOME/bin";
-    break
-    ;;
-  [Nn]* | "")
-    echo "Skipping oh-my-posh";
     break
     ;;
   *)
