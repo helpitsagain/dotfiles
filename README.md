@@ -1,8 +1,26 @@
 # dotfiles
+should work just fine on Arch and Debian based distros. not too sure about Red Hat distros yet.
+packages installed: `neovim`, `tmux`,`ranger`, and `neofetch`
 
-currently this only works on arch-based distros because I'm still figuring out bash scripting
-packages installed: nodejs, npm, neovim, tmux, ranger
+## dependencies
+proper functioning of these dotfiles require `git`, `stow`, `unzip`, `nodejs`, `npm`
 
+Arch:
+```
+sudo pacman -S git stow unzip nodejs npm
+```
+
+Debian:
+```
+sudo apt install -y git stow unzip nodejs npm
+```
+
+Red Hat:
+```
+sudo yum install -y git stow unzip nodejs npm
+```
+
+## usage
 ```
 git clone https://github.com/helpitsagain/dotfiles
 ```
@@ -12,11 +30,6 @@ cd dotfiles
 ```
 
 ```
-chmod +x script.sh
+stow .
 ```
 
-```
-. config.sh
-```
-
-it should keep a back up copy of any conflicting files but proceed with caution
