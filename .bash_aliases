@@ -16,13 +16,13 @@ alias nf='neofetch'
 alias wttr='curl http://wttr.in'
 alias omp='oh-my-posh'
 
-# Comandos da Bem
 ## git
 alias status='git status'
-alias pull='git pull origin master'
-alias reset='git reset --hard origin/master'
-alias tomaster='git checkout master && reset && pull && status'
+alias pull='git pull'
+alias push='git push'
+alias log='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit -10'
 
+# Comandos da Bem
 ## pnpm
 alias pi='rm -rfv node_modules && rm -fv pnpm-lock.yaml && pnpm i'
 alias pb='pnpm build'
