@@ -14,7 +14,8 @@ fi
 
 if [ "$distro" = "Arch" ]; then
   while true; do
-    read -p "Do you want to install yay? [y/N] " install_yay
+    echo "Do you want to install yay? [y/N]";
+    read install_yay;
     case "$install_yay" in
     [Yy]*)
       cd "$HOME";
@@ -39,7 +40,8 @@ if [ "$distro" = "Arch" ]; then
 fi
 
 while true; do
-  read -p "Do you want to install dependencies? [y/N] " install_deps
+  echo "Do you want to install dependencies? [y/N]";
+  read install_deps;
   case "$install_deps" in
   [Yy]*)
     echo "Installing dependencies";
@@ -64,7 +66,8 @@ while true; do
 done
 
 while true; do
-  read -p "Do you want to install packages? [y/N] " install_pkgs
+  echo "Do you want to install packages? [y/N]";
+  read install_pkgs""
   case "$install_pkgs" in
   [Yy]*)
     echo "Installing packages";
@@ -90,5 +93,3 @@ while true; do
   esac
 done
 
-read -rsp "Script completed. Press any key to continue." -n1
-echo
