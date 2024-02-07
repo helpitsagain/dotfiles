@@ -38,16 +38,40 @@ if [ "$distro" = "Arch" ]; then
   done
 fi
 
+while true do
+  read -p "Do you want to install dependencies? [y/N]" install_dependencies
+  case "$install_dependencies" in 
+    [Yy]*)
+      echo "Installing dependencies";
+      if [ "$distro" = "Ubuntu" ]; then
+       sudo apt install -y git stow unzip nodejs npm
+      elif [ "$distro" = "Arch" ]; then
+        sudo pacman -S git stow unzip nodejs npm
+      elif [ "$distro" = "RHEL" ]; then
+        sudo yum install -y git stow unzip nodejs npm
+      fi
+    break
+    ;;
+  [Nn]* | "")
+    echo "Skipping dependencies"
+    break
+    ;;
+  *)
+    echo "Invalid input. Please enter either \"y\" or \"n\", or leave input blank."
+    ;;
+  esac
+done
+
+
 while true; do
   read -p "Do you want to install packages? [y/N] " install_pkgs
   case "$install_pkgs" in
   [Yy]*)
     echo "Installing packages"
     if [ "$distro" = "Ubuntu" ]; then
-      sudo apt install -y tmux ranger neofetch
       sudo add-apt-repository ppa:neovim-ppa/unstable
       sudo apt update
-      sudo apt install -y neovim
+      sudo apt install -y neovim tmux ranger neofetch
     elif [ "$distro" = "Arch" ]; then
       sudo pacman -S neovim tmux ranger neofetch
     elif [ "$distro" = "RHEL" ]; then
