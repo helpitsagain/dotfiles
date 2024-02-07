@@ -38,22 +38,23 @@ if [ "$distro" = "Arch" ]; then
   done
 fi
 
-while true do
-  read -p "Do you want to install dependencies? [y/N]" install_dependencies
-  case "$install_dependencies" in 
-    [Yy]*)
-      echo "Installing dependencies";
-      if [ "$distro" = "Ubuntu" ]; then
-       sudo apt install -y git stow unzip nodejs npm
-      elif [ "$distro" = "Arch" ]; then
-        sudo pacman -S git stow unzip nodejs npm
-      elif [ "$distro" = "RHEL" ]; then
-        sudo yum install -y git stow unzip nodejs npm
-      fi
+while true; do
+  read -p "Do you want to install dependencies? [y/N] " install_deps
+  case "$install_deps" in
+  [Yy]*)
+    echo "Installing dependencies";
+    if [ "$distro" = "Ubuntu" ]; then
+      sudo apt install -y git stow unzip nodejs npm
+    elif [ "$distro" = "Arch" ]; then
+      sudo pacman -S git stow unzip nodejs npm
+    elif [ "$distro" = "RHEL" ]; then
+      sudo yum install -y git stow unzip nodejs npm
+    fi
+    echo "Dependencies installed successfully!";
     break
     ;;
   [Nn]* | "")
-    echo "Skipping dependencies"
+    echo "Skipping dependencies";
     break
     ;;
   *)
@@ -62,12 +63,11 @@ while true do
   esac
 done
 
-
 while true; do
   read -p "Do you want to install packages? [y/N] " install_pkgs
   case "$install_pkgs" in
   [Yy]*)
-    echo "Installing packages"
+    echo "Installing packages";
     if [ "$distro" = "Ubuntu" ]; then
       sudo add-apt-repository ppa:neovim-ppa/unstable
       sudo apt update
@@ -77,10 +77,11 @@ while true; do
     elif [ "$distro" = "RHEL" ]; then
       sudo yum install -y neovim tmux ranger neofetch
     fi
+    echo "Packages installed successfully!";
     break
     ;;
   [Nn]* | "")
-    echo "Skipping packages"
+    echo "Skipping packages";
     break
     ;;
   *)
@@ -89,3 +90,5 @@ while true; do
   esac
 done
 
+read -rsp "Script completed. Press any key to continue." -n1
+echo
