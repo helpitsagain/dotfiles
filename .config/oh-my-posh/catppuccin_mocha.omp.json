@@ -26,9 +26,9 @@
         {
           "foreground": "p:pink",
           "properties": {
-            "folder_icon": "..\ue5fe..",
+            "folder_icon": "..\ue5fe ..",
             "home_icon": "~",
-            "style": "full"
+            "style": "agnoster_short"
           },
           "style": "plain",
           "template": "{{ .Path }} ",
