@@ -20,6 +20,8 @@ alias omp='oh-my-posh'
 alias status='git status'
 alias pull='git pull'
 alias push='git push'
+alias commit='git commit'
+alias chk='git checkout'
 alias log='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit -10'
 
 # Comandos da Bem
