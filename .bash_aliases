@@ -21,7 +21,13 @@ alias status='git status'
 alias pull='git pull'
 alias push='git push'
 alias commit='git commit'
-alias chk='git checkout'
+alias checkout='git checkout'
+alias add='git add'
+alias restore='git restore'
+alias branch='git branch'
+
+## Configurar neovim
+alias nvconf=
 alias log='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit -10'
 
 # Comandos da Bem
@@ -30,4 +36,7 @@ alias pi='rm -rfv node_modules && rm -fv pnpm-lock.yaml && pnpm i'
 alias pb='pnpm build'
 alias ps='pnpm start'
 alias proot='cd ~/projetos/arquitetura/mfe-root-web && tomaster && pi && pb && ps'
-alias pe='clear && pnpm test:e2e'
+alias pe='pnpm test:e2e'
+
+## git
+alias tomaster='git checkout master && git reset --hard origin/master && git pull origin master'
