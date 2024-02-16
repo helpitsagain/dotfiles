@@ -1,20 +1,32 @@
-# Aliases
+# bash aliases
+## configure aliases
+alias aliasconf='nvim ~/.zsh_aliases'
+alias aliassource='source ~/.zsh_aliases'
+alias aliascat='bat ~/.zsh_aliases'
 
-## Configurar aliases
-alias aliasconf='nvim ~/.bash_aliases'
-alias aliassource='source ~/.bash_aliases'
-alias aliascat='cat ~/.bash_aliases'
-
-## Configurar tmux
+## configure tmux
 alias tsource='tmux source ~/.config/tmux/tmux.conf'
 alias tconf='nvim ~/.config/tmux/tmux.conf'
 
-## Comandos do bash
+## aliases
 alias ..='cd ..'
 alias ~='cd ~'
 alias nf='neofetch'
 alias wttr='curl http://wttr.in'
 alias omp='oh-my-posh'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+if [ -x /usr/bin/dircolors ]; then
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
+
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+fi
 
 ## git
 alias status='git status'
@@ -25,9 +37,6 @@ alias checkout='git checkout'
 alias add='git add'
 alias restore='git restore'
 alias branch='git branch'
-
-## Configurar neovim
-alias nvconf=
 alias log='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset" --date=short --abbrev-commit -10'
 
 # Comandos da Bem

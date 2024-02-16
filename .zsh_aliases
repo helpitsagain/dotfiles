@@ -1,14 +1,14 @@
-# aliases
-## Configurar aliases
+# zsh aliases
+## configure aliases
 alias aliasconf='nvim ~/.zsh_aliases'
 alias aliassource='source ~/.zsh_aliases'
 alias aliascat='bat ~/.zsh_aliases'
 
-## Configurar tmux
+## configure tmux
 alias tsource='tmux source ~/.config/tmux/tmux.conf'
 alias tconf='nvim ~/.config/tmux/tmux.conf'
 
-## Comandos do bash
+## aliases
 alias ..='cd ..'
 alias ~='cd ~'
 alias nf='neofetch'
@@ -37,9 +37,6 @@ alias checkout='git checkout'
 alias add='git add'
 alias restore='git restore'
 alias branch='git branch'
-
-## Configurar neovim
-alias nvconf=
 alias log='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset" --date=short --abbrev-commit -10'
 
 # Comandos da Bem
