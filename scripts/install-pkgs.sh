@@ -93,3 +93,35 @@ while true; do
   esac
 done
 
+while true; do
+  echo "Do you want to install FiraCode font? [y/N]";
+  read install_firacode;
+  case "$install_firacode" in
+  [Yy]*)
+    echo "Installing FiraCode";
+    if [ "$distro" = "Ubuntu" ]; then
+      mkdir -p "$HOME/local/share/fonts"
+      cd "$HOME/.local/share/fonts"
+      curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
+    elif [ "$distro" = "Arch" ]; then
+      yay -S ttf-firacode-nerd
+    elif [ "$distro" = "RHEL" ]; then
+      mkdir -p $HOME/.local/share/fonts
+      cd $HOME/.local/share/fonts
+      curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
+    fi
+    cd "$dotfiles_dir"
+    echo "FiraCode font installed successfully!";
+    break
+    ;;
+  [Nn]* | "")
+    echo "Skipping FiraCode";
+    break
+    ;;
+  *)
+    echo "Invalid input. Please enter either \"y\" or \"n\", or leave input blank."
+    ;;
+  esac
+done
+
+
