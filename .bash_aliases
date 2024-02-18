@@ -37,6 +37,7 @@ alias checkout='git checkout'
 alias add='git add'
 alias restore='git restore'
 alias branch='git branch'
+alias stash='git stash'
 alias log='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset" --date=short --abbrev-commit -10'
 
 # Comandos da Bem
