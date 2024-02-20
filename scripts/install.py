@@ -35,8 +35,10 @@ def install_yay():
 
 def install_dependencies(distro: str):
     if distro == 'debian':
+        os.system('sudo apt update && sudo apt upgrade')
         os.system('sudo apt install -y git stow unzip nodejs npm')
     elif distro == 'arch':
+        os.system('sudo pacman -Syu')
         os.system('sudo pacman -S git stow unzip nodejs npm')
     os.system('sudo npm install -g pyright')
 
