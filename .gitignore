@@ -3,6 +3,7 @@
 .config/dconf/
 .config/enchant/
 .config/gedit/
+.config/systemd/user/default.target.wants/
 
 *.bak
 *~
