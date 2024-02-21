@@ -1,3 +1,9 @@
 
-export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin
+if [[ ":$PATH:" != *"$HOME/bin"* ]]; then
+  export PATH="$HOME/bin:$PATH"
+fi  
+
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+source ~/.bashrc
 
