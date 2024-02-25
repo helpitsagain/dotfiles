@@ -19,42 +19,87 @@ def get_distro():
         for line in lines:
             if line.startswith('ID_LIKE='):
                 return line.split('=')[1].strip().lower()
+        for line in lines:
             if line.startswith('ID='):
                 return line.split('=')[1].strip().lower()
-        raise Exception('Unable to detect Linux distribution')   
+        raise Exception('Unable to detect Linux distribution')
+
+def run_command(command):
+    result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    if result.returncode != 0:
+        if 'is up to date -- skipping' in result.stderr: # checks if error indicates package is already up to date
+            return True
+        print(f'Error: {result.stderr}')
+        return False
+    return True
 
 def install_yay():
     home_dir = os.path.expanduser('~')
-    os.chdir(home_dir)
-    os.system('git clone https://aur.archlinux.org/yay.git')
-    os.chdir('yay')
-    os.system('makepkg -si')
-    os.system('sleep 1')
-    os.system('yay -Y --gendb')
-    os.system('yay -Syu --devel')
+    yay_dir = os.path.join(home_dir, 'yay')
+    commands = [
+        'sudo pacman -S git base-devel'
+        f'git clone https://aur.archlinux.org/yay.git {yay_dir}',
+        f'cd {yay_dir} && makepkg -si',
+        'yay -Y --gendb',
+        'yay -Syu --devel',
+    ]
+    for cmd in commands:
+        if not run_command(cmd):
+            return
 
 def install_dependencies(distro: str):
+    commands = []
     if distro == 'debian':
-        os.system('sudo apt update && sudo apt upgrade')
-        os.system('sudo apt install -y git stow unzip nodejs npm')
+        commands.extend([
+            'sudo apt update && sudo apt upgrade',
+            'sudo apt install -y git stow unzip nodejs npm',
+        ])
     elif distro == 'arch':
-        os.system('sudo pacman -Syu')
-        os.system('sudo pacman -S git stow unzip nodejs npm')
-    os.system('sudo npm install -g pyright')
+        commands.extend([
+            'sudo pacman -Syu',
+            'sudo pacman -S git stow unzip nodejs npm',
+        ])
+    commands.append('sudo npm install -g pyright')
+    for cmd in commands:
+        if not run_command(cmd):
+            return
 
-def install_packages(distro: str):
+def install_core_packages(distro: str):
+    commands = []
     if distro == 'debian':
-        os.system('sudo add-apt-repository ppa:neovim-ppa/unstable')
-        os.system('sudo apt update')
-        os.system('sudo apt install -y neovim tmux ranger neofetch')
+        commands.append([
+            'sudo add-apt-repository ppa:neovim-ppa/unstable',
+            'sudo apt update',
+            'sudo apt install -y neovim tmux ranger neofetch',
+        ])
     elif distro == 'arch':
-        os.system('sudo pacman -S neovim tmux ranger neofetch')
+        commands.append('sudo pacman -S neovim tmux ranger neofetch')
+    for cmd in commands:
+        if not run_command(cmd):
+            return
+
+# TODO: figure out optional packages
+def install_optional_packages(distro: str):
+    commands = []
+    if distro == 'debian':
+        commands.append([
+            'sudo apt install -y google-chrome-stable gnome-tweaks',
+        ])
+    elif distro == 'arch':
+        commands.append('yay -S google-chrome gnome-tweaks')
+    for cmd in commands:
+        if not run_command(cmd):
+            return
 
 def stow_files():
     dotfiles_dir = get_dotfiles_dir()
-    os.system('rm -rf ~/.bashrc ~/.bash_aliases ~/.zshrc ~/.zshenv ~/.zsh_aliases')
-    os.chdir(dotfiles_dir)
-    os.system('stow .')
+    commands = [
+        'rm -rf ~/.bashrc* ~/.bash_aliases* ~/.zshrc* ~/.zshenv* ~/.zsh_aliases*',
+        f'cd {dotfiles_dir} && stow .'
+    ]
+    for cmd in commands:
+        if not run_command(cmd):
+            return
 
 distro = get_distro()
 
@@ -82,15 +127,26 @@ while True:
 
 
 while True:
-    choose_install_packages = input('Do you want to install packages? [y/N] ').lower().strip()
-    if choose_install_packages in ['yes', 'y']:
+    choose_install_core_packages = input('Do you want to install packages? [y/N] ').lower().strip()
+    if choose_install_core_packages in ['yes', 'y']:
         print('Installing packages')
-        install_packages(distro)
+        install_core_packages(distro)
         break
-    if choose_install_packages in ['no', 'n', '']:
+    if choose_install_core_packages in ['no', 'n', '']:
         print('Skipping packages')
         break
     print('Invalid input. Please enter either "y" or "n", or leave input blank.')
+
+# while True:
+#     choose_install_optional_packages = input('Do you want to install packages? [y/N] ').lower().strip()
+#     if choose_install_optional_packages in ['yes', 'y']:
+#         print('Installing packages')
+#         install_core_packages(distro)
+#         break
+#     if choose_install_optional_packages in ['no', 'n', '']:
+#         print('Skipping packages')
+#         break
+#     print('Invalid input. Please enter either "y" or "n", or leave input blank.')
 
 while True:
     choose_run_stow = input('Do you want to run stow right now? [y/N] ').lower().strip()
