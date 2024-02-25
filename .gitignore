@@ -5,5 +5,9 @@
 .config/gedit/
 .config/systemd/user/default.target.wants/
 
+.ssh/github
+.ssh/github.pub
+.ssh/known_hosts
+
 *.bak
 *~
