@@ -45,7 +45,6 @@ M.nvimtree = {
   git = {
     enable = true,
   },
-
   renderer = {
     highlight_git = true,
     icons = {
@@ -54,6 +53,10 @@ M.nvimtree = {
       },
     },
   },
+  view = {
+    relativenumber = true
+  },
+
 }
 
 return M
