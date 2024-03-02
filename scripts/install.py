@@ -37,11 +37,11 @@ def install_yay():
     home_dir = os.path.expanduser('~')
     yay_dir = os.path.join(home_dir, 'yay')
     commands = [
-        'sudo pacman -S git base-devel'
+        'sudo pacman -S git base-devel --noconfirm'
         f'git clone https://aur.archlinux.org/yay.git {yay_dir}',
         f'cd {yay_dir} && makepkg -si',
-        'yay -Y --gendb',
-        'yay -Syu --devel',
+        'yay -Y --gendb --noconfirm',
+        'yay -Syu --devel --noconfirm',
     ]
     for cmd in commands:
         if not run_command(cmd):
@@ -51,13 +51,13 @@ def install_dependencies(distro: str):
     commands = []
     if distro == 'debian':
         commands.extend([
-            'sudo apt update && sudo apt upgrade',
-            'sudo apt install -y git stow unzip nodejs npm',
+            'sudo apt update -y && sudo apt upgrade -y',
+            'sudo apt install -y git stow unzip nodejs npm python3',
         ])
     elif distro == 'arch':
         commands.extend([
-            'sudo pacman -Syu',
-            'sudo pacman -S git stow unzip nodejs npm',
+            'sudo pacman -Syu --noconfirm',
+            'sudo pacman -S git stow unzip nodejs npm python --noconfirm',
         ])
     commands.append('sudo npm install -g pyright')
     for cmd in commands:
@@ -68,12 +68,12 @@ def install_core_packages(distro: str):
     commands = []
     if distro == 'debian':
         commands.append([
-            'sudo add-apt-repository ppa:neovim-ppa/unstable',
-            'sudo apt update',
+            'sudo add-apt-repository -y ppa:neovim-ppa/unstable',
+            'sudo apt update -y',
             'sudo apt install -y neovim tmux ranger neofetch',
         ])
     elif distro == 'arch':
-        commands.append('sudo pacman -S neovim tmux ranger neofetch')
+        commands.append('sudo pacman -S neovim tmux ranger neofetch --noconfirm')
     for cmd in commands:
         if not run_command(cmd):
             return
@@ -86,7 +86,7 @@ def install_optional_packages(distro: str):
             'sudo apt install -y google-chrome-stable gnome-tweaks',
         ])
     elif distro == 'arch':
-        commands.append('yay -S google-chrome gnome-tweaks')
+        commands.append('yay -S google-chrome gnome-tweaks --noconfirm')
     for cmd in commands:
         if not run_command(cmd):
             return
