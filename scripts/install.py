@@ -95,7 +95,8 @@ def stow_files():
     dotfiles_dir = get_dotfiles_dir()
     commands = [
         'rm -rf ~/.bashrc* ~/.bash_aliases* ~/.zshrc* ~/.zshenv* ~/.zsh_aliases*',
-        f'cd {dotfiles_dir} && stow .'
+        f'cd {dotfiles_dir} && stow .',
+        'sudo ln ~/bin/oh-my-posh /usr/bin/'
     ]
     for cmd in commands:
         if not run_command(cmd):
