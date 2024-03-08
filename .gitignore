@@ -4,6 +4,10 @@
 .config/enchant/
 .config/gedit/
 .config/systemd/user/default.target.wants/
+.config/goa-1.0
+.config/nautilus
+.config/pulse
+.config/ibus
 
 .ssh/github
 .ssh/github.pub
