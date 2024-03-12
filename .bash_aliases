@@ -1,8 +1,8 @@
 # bash aliases
 ## configure aliases
-alias aliasconf='nvim ~/.zsh_aliases'
-alias aliassource='source ~/.zsh_aliases'
-alias aliascat='bat ~/.zsh_aliases'
+alias aliasconf='nvim ~/.bash_aliases'
+alias aliassource='source ~/.bash_aliases'
+alias aliascat='bat ~/.bash_aliases'
 
 ## configure tmux
 alias tsource='tmux source ~/.config/tmux/tmux.conf'

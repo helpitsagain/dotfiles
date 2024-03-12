@@ -121,3 +121,4 @@ fi
 
 eval "$(oh-my-posh init bash --config $HOME/.config/oh-my-posh/catppuccin_mocha.omp.json)"
 
+. "$HOME/.cargo/env"
