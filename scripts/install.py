@@ -3,15 +3,7 @@ import os
 import subprocess
 
 def get_dotfiles_dir():
-    # shell command to get script's dir
-    result = subprocess.run(['dirname', os.path.realpath(__file__)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    # check if command was successful
-    if result.returncode == 0: 
-        script_dir = result.stdout.strip()
-        dotfiles_dir = script_dir[:script_dir.rindex('/')] # cuts off script folder from path
-        return dotfiles_dir
-    print(f'Error: {result.stderr}')
-    return ''
+   return os.path.dirname(__file__)
 
 def get_distro():
     with open('/etc/os-release', 'r') as f:
@@ -27,10 +19,12 @@ def get_distro():
 def run_command(command):
     result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if result.returncode != 0:
-        if 'is up to date -- skipping' in result.stderr: # checks if error indicates package is already up to date
+        if 'is up to date -- skipping' in result.stderr: # checks if error indicates package is already up to date when running pacman
+            if result.stdout: print(result.stdout)
             return True
         print(f'Error: {result.stderr}')
-        return False
+        raise Exception('Unable to complete script')
+    print(result.stdout)
     return True
 
 def install_yay():
@@ -51,8 +45,9 @@ def install_dependencies(distro: str):
     commands = []
     if distro == 'debian':
         commands.extend([
-            'sudo apt update -y && sudo apt upgrade -y',
-            'sudo apt install -y git stow unzip nodejs npm python3',
+            'sudo apt-get update -y',
+            'sudo apt-get upgrade -y',
+            'sudo apt-get install -y git stow unzip nodejs npm python3',
         ])
     elif distro == 'arch':
         commands.extend([
@@ -69,8 +64,8 @@ def install_core_packages(distro: str):
     if distro == 'debian':
         commands.append([
             'sudo add-apt-repository -y ppa:neovim-ppa/unstable',
-            'sudo apt update -y',
-            'sudo apt install -y neovim tmux ranger neofetch',
+            'sudo apt-get update -y',
+            'sudo apt-get install -y neovim tmux ranger neofetch',
         ])
     elif distro == 'arch':
         commands.append('sudo pacman -S neovim tmux ranger neofetch --noconfirm')
@@ -83,7 +78,7 @@ def install_optional_packages(distro: str):
     commands = []
     if distro == 'debian':
         commands.append([
-            'sudo apt install -y google-chrome-stable gnome-tweaks',
+            'sudo apt-get install -y google-chrome-stable gnome-tweaks',
         ])
     elif distro == 'arch':
         commands.append('yay -S google-chrome gnome-tweaks --noconfirm')
@@ -95,8 +90,10 @@ def stow_files():
     dotfiles_dir = get_dotfiles_dir()
     commands = [
         'rm -rf ~/.bashrc* ~/.bash_aliases* ~/.zshrc* ~/.zshenv* ~/.zsh_aliases*',
-        f'cd {dotfiles_dir} && stow .',
-        'sudo ln ~/bin/oh-my-posh /usr/bin/'
+        f'cd {dotfiles_dir} && stow .'
+        'sudo ln ~/bin/oh-my-posh /usr/bin/',
+        'source ~/.bashrc',
+        'source ~/.zshrc'
     ]
     for cmd in commands:
         if not run_command(cmd):
@@ -130,7 +127,7 @@ while True:
 while True:
     choose_install_core_packages = input('Do you want to install packages? [y/N] ').lower().strip()
     if choose_install_core_packages in ['yes', 'y']:
-        print('Installing packages')
+        print('Installing core packages')
         install_core_packages(distro)
         break
     if choose_install_core_packages in ['no', 'n', '']:
@@ -141,7 +138,7 @@ while True:
 # while True:
 #     choose_install_optional_packages = input('Do you want to install packages? [y/N] ').lower().strip()
 #     if choose_install_optional_packages in ['yes', 'y']:
-#         print('Installing packages')
+#         print('Installing optional packages')
 #         install_core_packages(distro)
 #         break
 #     if choose_install_optional_packages in ['no', 'n', '']:
