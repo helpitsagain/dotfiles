@@ -4,6 +4,7 @@
 .config/enchant/
 .config/gedit/
 .config/systemd/user/default.target.wants/
+.config/configstore/
 
 .ssh/github
 .ssh/github.pub
