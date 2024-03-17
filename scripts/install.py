@@ -119,7 +119,7 @@ while True:
     choose_install_dependencies = input('Do you want to install dependencies? [y/N] ').lower().strip()
     if choose_install_dependencies in ['yes', 'y']:
         print('Installing dependencies')
-        # install_dependencies(distro)
+        install_dependencies(distro)
         install_rustup()
         break
     if choose_install_dependencies in ['no', 'n', '']:
@@ -128,26 +128,26 @@ while True:
     print('Invalid input. Please enter either "y" or "n", or leave input blank.')
 
 
-# while True:
-#     choose_install_core_packages = input('Do you want to install packages? [y/N] ').lower().strip()
-#     if choose_install_core_packages in ['yes', 'y']:
-#         print('Installing core packages')
-#         install_core_packages(distro)
-#         break
-#     if choose_install_core_packages in ['no', 'n', '']:
-#         print('Skipping packages')
-#         break
-#     print('Invalid input. Please enter either "y" or "n", or leave input blank.')
+while True:
+    choose_install_core_packages = input('Do you want to install packages? [y/N] ').lower().strip()
+    if choose_install_core_packages in ['yes', 'y']:
+        print('Installing core packages')
+        install_core_packages(distro)
+        break
+    if choose_install_core_packages in ['no', 'n', '']:
+        print('Skipping packages')
+        break
+    print('Invalid input. Please enter either "y" or "n", or leave input blank.')
 
-# while True:
-#     choose_run_stow = input('Do you want to run stow right now? [y/N] ').lower().strip()
-#     if choose_run_stow in ['yes', 'y']:
-#         print('Stowing files')
-#         stow_files()
-#         break
-#     if choose_run_stow in ['no', 'n', '']:
-#         print('You can run stow at any time by changing into the dotfiles folder')
-#         print('and running \'stow .\'')
-#         break
-#     print('Invalid input. Please enter either "y" or "n", or leave input blank.')
-#
+while True:
+    choose_run_stow = input('Do you want to run stow right now? [y/N] ').lower().strip()
+    if choose_run_stow in ['yes', 'y']:
+        print('Stowing files')
+        stow_files()
+        break
+    if choose_run_stow in ['no', 'n', '']:
+        print('You can run stow at any time by changing into the dotfiles folder')
+        print('and running \'stow .\'')
+        break
+    print('Invalid input. Please enter either "y" or "n", or leave input blank.')
+
