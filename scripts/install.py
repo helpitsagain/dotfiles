@@ -59,6 +59,9 @@ def install_dependencies(distro: str):
         if not run_command(cmd):
             return
 
+def install_rustup():
+    if not run_command("curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"): return
+
 def install_core_packages(distro: str):
     commands = []
     if distro == 'debian':
@@ -117,6 +120,7 @@ while True:
     if choose_install_dependencies in ['yes', 'y']:
         print('Installing dependencies')
         install_dependencies(distro)
+        install_rustup()
         break
     if choose_install_dependencies in ['no', 'n', '']:
         print('Skipping dependencies')

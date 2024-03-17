@@ -3,7 +3,7 @@ should work just fine on Arch and Debian based distros.
 packages installed: `neovim`, `tmux`,`ranger`, and `neofetch`
 
 ## dependencies
-proper functioning of these dotfiles require `git`, `stow`, `unzip`, `nodejs`, `npm`, `python`
+proper functioning of these dotfiles require `git`, `stow`, `unzip`, `nodejs`, `npm`, `python` and `rustup`.
 
 Arch:
 ```
