@@ -93,8 +93,8 @@ def stow_files():
     dotfiles_dir = get_dotfiles_dir()
     commands = [
         'rm -rf ~/.bashrc* ~/.bash_aliases* ~/.zshrc* ~/.zshenv* ~/.zsh_aliases*',
-        f'cd {dotfiles_dir} && stow .'
-        'sudo ln ~/bin/oh-my-posh /usr/bin/',
+        f'cd {dotfiles_dir} && stow .',
+        'sudo ln -f ~/bin/oh-my-posh /usr/bin/',
         'source ~/.bashrc',
         'source ~/.zshrc'
     ]
