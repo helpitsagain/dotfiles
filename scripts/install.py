@@ -16,6 +16,9 @@ def get_distro():
                 return line.split('=')[1].strip().lower()
         raise Exception('Unable to detect Linux distribution')
 
+def get_user_input(message: str):
+    return input(f'{message}').strip().lower()
+
 def run_command(command):
     result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if result.returncode != 0:
@@ -106,7 +109,7 @@ distro = get_distro()
 
 if distro == 'arch':
     while True:
-        choose_install_yay = input('Do you want to install yay? [y/N] ').lower().strip()
+        choose_install_yay = get_user_input('Do you want to install yay? [y/N]')
         if choose_install_yay in ['yes', 'y']:
             install_yay()
             break
@@ -116,7 +119,7 @@ if distro == 'arch':
         print('Invalid input. Please enter either "y" or "n", or leave input blank.')
 
 while True:
-    choose_install_dependencies = input('Do you want to install dependencies? [y/N] ').lower().strip()
+    choose_install_dependencies = get_user_input('Do you want to install dependencies? [y/N] ')
     if choose_install_dependencies in ['yes', 'y']:
         print('Installing dependencies')
         install_dependencies(distro)
@@ -129,7 +132,7 @@ while True:
 
 
 while True:
-    choose_install_core_packages = input('Do you want to install packages? [y/N] ').lower().strip()
+    choose_install_core_packages = get_user_input('Do you want to install packages? [y/N] ')
     if choose_install_core_packages in ['yes', 'y']:
         print('Installing core packages')
         install_core_packages(distro)
@@ -140,7 +143,7 @@ while True:
     print('Invalid input. Please enter either "y" or "n", or leave input blank.')
 
 while True:
-    choose_run_stow = input('Do you want to run stow right now? [y/N] ').lower().strip()
+    choose_run_stow = get_user_input('Do you want to run stow right now? [y/N] ')
     if choose_run_stow in ['yes', 'y']:
         print('Stowing files')
         stow_files()
