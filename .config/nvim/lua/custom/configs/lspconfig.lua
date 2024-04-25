@@ -1,18 +1,19 @@
-
-local lspconfig = require "lspconfig"
-local lspconfig_configs = require("plugins.configs.lspconfig")
-
-local on_attach = lspconfig_configs.on_attach
-local capabilities = lspconfig_configs.capabilities
-
-
--- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "tsserver", "clangd", "pyright" }
-
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-end
--- 
+-- something was breaking in the lspconfig so I'm commenting it all out until I have the time to figure it out
+--
+-- local lspconfig = require "lspconfig"
+-- local lspconfig_configs = require("plugins.configs.lspconfig")
+--
+-- local on_attach = lspconfig_configs.on_attach
+-- local capabilities = lspconfig_configs.capabilities
+--
+--
+-- -- if you just want default config for the servers then put them in a table
+-- local servers = { "html", "cssls", "tsserver", "clangd", "pyright" }
+--
+-- for _, lsp in ipairs(servers) do
+--   lspconfig[lsp].setup {
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--   }
+-- end
+-- -- 
