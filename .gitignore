@@ -10,6 +10,8 @@
 .config/pulse
 .config/ibus
 
+.ssh/azure_repo
+.ssh/azure_repo.pub
 .ssh/github
 .ssh/github.pub
 .ssh/known_hosts
