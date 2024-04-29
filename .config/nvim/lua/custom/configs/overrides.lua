@@ -1,6 +1,6 @@
-local M = {}
+local overrides = {}
 
-M.treesitter = {
+overrides.treesitter = {
   ensure_installed = {
     "vim",
     "lua",
@@ -21,16 +21,18 @@ M.treesitter = {
   },
 }
 
-M.mason = {
+overrides.mason = {
   ensure_installed = {
     -- lua stuff
     "lua-language-server",
     "stylua",
+    "lua_ls",
 
     -- web dev stuff
     "css-lsp",
     "html-lsp",
     "typescript-language-server",
+    "tsserver",
     "deno",
     "prettier",
 
@@ -41,7 +43,7 @@ M.mason = {
 }
 
 -- git support in nvimtree
-M.nvimtree = {
+overrides.nvimtree = {
   git = {
     enable = true,
   },
@@ -59,4 +61,4 @@ M.nvimtree = {
 
 }
 
-return M
+return overrides

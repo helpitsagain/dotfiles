@@ -8,6 +8,7 @@ local options = {
 		javascript = { "prettier" },
 		css = { "prettier" },
 		html = { "prettier" },
+    typescript = { "prettier "},
 
     python = { "isort", "black" },
 

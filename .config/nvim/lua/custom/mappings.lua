@@ -18,6 +18,9 @@ M.general = {
     ["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "window up" },
     ["<C-l>"] = { "<cmd> TmuxNavigateRight<CR>", "window right" },
 
+    ["<leader>ol"] = { "<cmd> :Lazy<CR>", "open Lazy"},
+    ["<leader>om"] = { "<cmd> :Mason<CR>", "open Mason"},
+
   },
   v = {
     [">"] = { ">gv", "indent"},
