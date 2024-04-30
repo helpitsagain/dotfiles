@@ -2,16 +2,17 @@ local overrides = {}
 
 overrides.treesitter = {
   ensure_installed = {
-    "vim",
-    "lua",
-    "html",
-    "css",
-    "javascript",
-    "typescript",
-    "tsx",
-    "c",
-    "markdown",
-    "markdown_inline",
+    'vim',
+    'lua',
+    'html',
+    'css',
+    'javascript',
+    'typescript',
+    'tsx',
+    'c',
+    'markdown',
+    'markdown_inline',
+    'c_sharp',
   },
   indent = {
     enable = true,
@@ -21,26 +22,26 @@ overrides.treesitter = {
   },
 }
 
-overrides.mason = {
-  ensure_installed = {
-    -- lua stuff
-    "lua-language-server",
-    "stylua",
-    "lua_ls",
-
-    -- web dev stuff
-    "css-lsp",
-    "html-lsp",
-    "typescript-language-server",
-    "tsserver",
-    "deno",
-    "prettier",
-
-    -- c/cpp stuff
-    "clangd",
-    "clang-format",
-  },
-}
+-- overrides.mason = {
+--   ensure_installed = {
+--     -- lua stuff
+--     "lua-language-server",
+--     "stylua",
+--     "lua_ls",
+--
+--     -- web dev stuff
+--     "css-lsp",
+--     "html-lsp",
+--     "typescript-language-server",
+--     "tsserver",
+--     "deno",
+--     "prettier",
+--
+--     -- c/cpp stuff
+--     "clangd",
+--     "clang-format",
+--   },
+-- }
 
 -- git support in nvimtree
 overrides.nvimtree = {
@@ -56,9 +57,24 @@ overrides.nvimtree = {
     },
   },
   view = {
-    relativenumber = true
+    relativenumber = true,
+    cursorline = true,
+    width = 40,
   },
-
 }
+
+-- overrides.telescope_ui_select = {
+--   config = function()
+--     require("telescope").setup({
+--       extensions = {
+--         ["ui-select"] = {
+--           require("telescope.themes").get_dropdown {
+--           }
+--         }
+--       }
+--     })
+--     require("telescope").load_extension("ui-select")
+--   end
+-- }
 
 return overrides

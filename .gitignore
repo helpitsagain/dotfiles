@@ -16,6 +16,6 @@
 .ssh/github.pub
 .ssh/known_hosts
 
-*.bak
+*.bak*
 *~
-*.old
+*.old*
