@@ -22,27 +22,6 @@ overrides.treesitter = {
   },
 }
 
--- overrides.mason = {
---   ensure_installed = {
---     -- lua stuff
---     "lua-language-server",
---     "stylua",
---     "lua_ls",
---
---     -- web dev stuff
---     "css-lsp",
---     "html-lsp",
---     "typescript-language-server",
---     "tsserver",
---     "deno",
---     "prettier",
---
---     -- c/cpp stuff
---     "clangd",
---     "clang-format",
---   },
--- }
-
 -- git support in nvimtree
 overrides.nvimtree = {
   git = {
@@ -62,19 +41,5 @@ overrides.nvimtree = {
     width = 40,
   },
 }
-
--- overrides.telescope_ui_select = {
---   config = function()
---     require("telescope").setup({
---       extensions = {
---         ["ui-select"] = {
---           require("telescope.themes").get_dropdown {
---           }
---         }
---       }
---     })
---     require("telescope").load_extension("ui-select")
---   end
--- }
 
 return overrides

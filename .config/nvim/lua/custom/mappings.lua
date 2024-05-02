@@ -3,136 +3,127 @@ local mappings = {}
 
 mappings.general = {
   n = {
-    [";"] = { ":", "enter command mode", opts = { nowait = true } },
-
-    --  format with conform
-    -- ["<leader>fm"] = {
-    --   function()
-    --     ---@diagnostic disable-next-line: different-requires
-    --     require("conform").format()
-    --   end,
-    --   "formatting",
-    -- },
+    [';'] = { ':', 'enter command mode', opts = { nowait = true } },
 
     -- Navigate seamlessly between neovim and tmux
-    ["<C-h>"] = { "<cmd> TmuxNavigateLeft<CR>", "window left" },
-    ["<C-j>"] = { "<cmd> TmuxNavigateDown<CR>", "window down" },
-    ["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "window up" },
-    ["<C-l>"] = { "<cmd> TmuxNavigateRight<CR>", "window right" },
+    ['<C-h>'] = { '<cmd> TmuxNavigateLeft<CR>', 'window left' },
+    ['<C-j>'] = { '<cmd> TmuxNavigateDown<CR>', 'window down' },
+    ['<C-k>'] = { '<cmd> TmuxNavigateUp<CR>', 'window up' },
+    ['<C-l>'] = { '<cmd> TmuxNavigateRight<CR>', 'window right' },
 
-    ["<leader>ol"] = { "<cmd> :Lazy<CR>", "open Lazy" },
-    ["<leader>om"] = { "<cmd> :Mason<CR>", "open Mason" },
+    ['<leader>ol'] = { '<cmd> :Lazy<CR>', 'open Lazy' },
+    ['<leader>om'] = { '<cmd> :Mason<CR>', 'open Mason' },
 
-    ["gD"] = {
+    ['gD'] = {
       function()
         vim.lsp.buf.declaration()
       end,
-      "LSP declaration",
+      'LSP declaration',
     },
 
-    ["gd"] = {
+    ['gd'] = {
       function()
         vim.lsp.buf.definition()
       end,
-      "LSP definition",
+      'LSP definition',
     },
 
-    ["K"] = {
+    ['K'] = {
       function()
         vim.lsp.buf.hover()
       end,
-      "LSP hover",
+      'LSP hover',
     },
 
-    ["gi"] = {
+    ['gi'] = {
       function()
         vim.lsp.buf.implementation()
       end,
-      "LSP implementation",
+      'LSP implementation',
     },
 
-    ["<leader>ls"] = {
+    ['<leader>ls'] = {
       function()
         vim.lsp.buf.signature_help()
       end,
-      "LSP signature help",
+      'LSP signature help',
     },
 
-    ["<leader>D"] = {
+    ['<leader>D'] = {
       function()
         vim.lsp.buf.type_definition()
       end,
-      "LSP definition type",
+      'LSP definition type',
     },
 
-    ["<leader>ra"] = {
+    ['<leader>ra'] = {
       function()
-        require("nvchad.renamer").open()
+        require('nvchad.renamer').open()
       end,
-      "LSP rename",
+      'LSP rename',
     },
 
-    ["<leader>ca"] = {
+    ['<leader>ca'] = {
       function()
         vim.lsp.buf.code_action()
       end,
-      "LSP code action",
+      'LSP code action',
     },
 
-    ["gr"] = {
+    ['gr'] = {
       function()
         vim.lsp.buf.references()
       end,
-      "LSP references",
+      'LSP references',
     },
 
-    ["<leader>lf"] = {
+    ['<leader>lf'] = {
       function()
-        vim.diagnostic.open_float { border = "rounded" }
+        vim.diagnostic.open_float({ border = 'rounded' })
       end,
-      "Floating diagnostic",
+      'Floating diagnostic',
     },
 
-    ["[d"] = {
+    ['[d'] = {
       function()
-        vim.diagnostic.goto_prev { float = { border = "rounded" } }
+        vim.diagnostic.goto_prev({ float = { border = 'rounded' } })
       end,
-      "Goto prev",
+      'Goto prev',
     },
 
-    ["]d"] = {
+    [']d'] = {
       function()
-        vim.diagnostic.goto_next { float = { border = "rounded" } }
+        vim.diagnostic.goto_next({ float = { border = 'rounded' } })
       end,
-      "Goto next",
+      'Goto next',
     },
 
-    ["<leader>q"] = {
+    ['<leader>q'] = {
       function()
         vim.diagnostic.setloclist()
       end,
-      "Diagnostic setloclist",
+      'Diagnostic setloclist',
     },
 
-    ["<leader>wa"] = {
+    ['<leader>wa'] = {
       function()
         vim.lsp.buf.add_workspace_folder()
       end,
-      "Add workspace folder",
+      'Add workspace folder',
     },
 
-    ["<leader>wr"] = {
+    ['<leader>wr'] = {
       function()
         vim.lsp.buf.remove_workspace_folder()
       end,
-      "Remove workspace folder",
+      'Remove workspace folder',
     },
 
-    ["<leader>wl"] = {
+    ['<leader>wl'] = {
       function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
       end,
-      "List workspace folders",
+      'List workspace folders',
     },
 
     -- ["<leader>fm"] = {
@@ -144,7 +135,7 @@ mappings.general = {
   },
 
   v = {
-    [">"] = { ">gv", "indent" },
+    ['>'] = { '>gv', 'indent' },
   },
 }
 

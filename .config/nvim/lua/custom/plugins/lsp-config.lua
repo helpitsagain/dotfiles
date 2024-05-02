@@ -34,6 +34,6 @@ return {
       lspconfig.tsserver.setup({})
       lspconfig.pyright.setup({})
       lspconfig.omnisharp.setup({})
-    end,         -- Override to setup mason-lspconfig
+    end, -- Override to setup mason-lspconfig
   },
 }
