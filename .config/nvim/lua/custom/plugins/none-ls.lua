@@ -1,6 +1,7 @@
 return {
   {
     'nvimtools/none-ls.nvim',
+    dependencies = { 'nvimtools/none-ls-extras.nvim' },
     lazy = false,
     requires = { 'nvim-lua/plenary.nvim' },
 
@@ -11,11 +12,11 @@ return {
         sources = {
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.prettier,
-          -- null_ls.builtins.diagnostics.eslint_d,
+          require('none-ls.diagnostics.eslint_d')
         },
       })
 
-      vim.keymap.set('n', '<leader>fm', vim.lsp.buf.format, {})
+      vim.keymap.set('n', '<leader>fp', vim.lsp.buf.format, {})
     end,
   },
 }
