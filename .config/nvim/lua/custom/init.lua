@@ -10,3 +10,8 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.softtabstop = 2
+
+vim.opt.foldcolumn = '1'
+vim.opt.foldmethod = 'expr'
+vim.opt.foldlevel = 20
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
