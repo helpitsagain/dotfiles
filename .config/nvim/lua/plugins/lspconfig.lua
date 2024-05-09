@@ -1,5 +1,3 @@
-local mason_opts = require('configs.mason')
-
 return {
   {
     'neovim/nvim-lspconfig',
@@ -11,10 +9,10 @@ return {
 
   {
     'williamboman/mason.nvim',
-    opts = mason_opts.ensure_installed,
+    opts = require('configs.mason'),
   },
 
   {
     'williamboman/mason-lspconfig.nvim',
-  }
+  },
 }

@@ -51,10 +51,10 @@ M.ui = {
     sizes = { sp = 0.3, vsp = 0.2 },
     float = {
       relative = 'editor',
-      row = 0.1,
+      row = 0.05,
       col = 0.05,
       width = 0.9,
-      height = 0.7,
+      height = 0.8,
       border = 'single',
     },
   },

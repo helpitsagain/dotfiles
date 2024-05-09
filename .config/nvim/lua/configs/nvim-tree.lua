@@ -2,6 +2,7 @@ local options = {
   view = {
     cursorline = false,
     relativenumber = true,
+    centralize_selection = true,
     width = {
       min = 20,
       max = 40,
