@@ -5,6 +5,8 @@ local options = {
     'html-lsp',
     'css-lsp',
     'prettier',
+    'typescript-language-server',
+    'bash-language-server',
   },
 }
 
