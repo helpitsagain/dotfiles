@@ -8,6 +8,9 @@ local options = {
     'css',
     'javascript',
     'typescript',
+
+    'python',
+    'rust',
   },
 
   highlight = {

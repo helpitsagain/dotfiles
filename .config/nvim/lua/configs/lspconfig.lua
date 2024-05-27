@@ -4,7 +4,7 @@ local on_init = require('nvchad.configs.lspconfig').on_init
 local capabilities = require('nvchad.configs.lspconfig').capabilities
 
 local lspconfig = require('lspconfig')
-local servers = { 'lua_ls', 'html', 'cssls', 'tsserver', 'bashls' }
+local servers = { 'lua_ls', 'html', 'cssls', 'tsserver', 'bashls', 'rust_analyzer' }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -21,3 +21,16 @@ end
 --   on_init = on_init,
 --   capabilities = capabilities,
 -- })
+
+lspconfig.rust_analyzer.setup({
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = true,
+      },
+    },
+  },
+})

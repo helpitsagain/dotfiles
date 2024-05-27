@@ -1,13 +1,28 @@
 local options = {
   view = {
-    cursorline = false,
+    cursorline = true,
     relativenumber = true,
-    centralize_selection = true,
     width = {
-      min = 20,
-      max = 40,
-      padding = 1,
+      min = 0,
+      max = 50,
+      padding = 2,
     },
+  },
+
+  hijack_cursor = true,
+
+  update_focused_file = {
+    enable = true,
+    update_root = false,
+  },
+
+  filters = {
+    enable = true,
+    git_ignored = false,
+    git_clean = false,
+    dotfiles = false,
+    no_buffer = false,
+    no_bookmark = false,
   },
 
   git = {
@@ -95,3 +110,8 @@ local options = {
 }
 
 require('nvim-tree').setup(options)
+
+-- highlights
+vim.cmd([[
+  :hi NvimTreeCursorLine guibg=#252434 gui=bold
+]])
