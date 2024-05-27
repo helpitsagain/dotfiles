@@ -11,7 +11,7 @@ map('n', '<C-k>', '<CMD> TmuxNavigateUp<CR>', { desc = 'Navigate Up' })
 map('n', '<C-l>', '<CMD> TmuxNavigateRight<CR>', { desc = 'Navigate Right' })
 
 map('n', ';', ':', { desc = 'CMD enter command mode' })
-map({ 'i', 'v' }, 'jk', '<ESC>')
+map({ 'i' }, 'jk', '<ESC>')
 
 map('n', '<leader>ol', '<CMD> :Lazy<CR>', { desc = 'Open Lazy' })
 map('n', '<leader>om', '<CMD> :Mason<CR>', { desc = 'Open Mason' })
