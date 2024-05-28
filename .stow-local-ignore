@@ -22,5 +22,5 @@ _darcs
 ^/COPYING
 
 scripts
-*.bak*
-*.old*
+\*.bak*
+\*.old*

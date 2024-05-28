@@ -9,17 +9,9 @@ return {
 
   {
     'williamboman/mason.nvim',
-    opts = require('configs.mason'),
-    -- config = require('mason').setup({
-    --   ui = {
-    --     icons = {
-    --       package_installed = '',
-    --       package_pending = '',
-    --       package_uninstalled = '',
-    --     },
-    --   },
-    -- }),
-    -- config = require('configs.mason'),
+    config = function()
+      require('configs.mason')
+    end,
   },
 
   {

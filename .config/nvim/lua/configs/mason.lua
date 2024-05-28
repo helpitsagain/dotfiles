@@ -18,5 +18,4 @@ local options = {
   },
 }
 
--- require('mason').setup(options)
-return options
+require('mason').setup(options)
