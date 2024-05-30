@@ -1,3 +1,19 @@
+# this used to be .zshenv
+if [[ ":$PATH:" != *"$HOME/bin"* ]]; then
+  export PATH="$HOME/bin:$PATH"
+fi  
+
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+eval "$(ssh-agent -s)" > /dev/null 2>&1
+ssh-add ~/.ssh/github > /dev/null 2>&1 
+ssh-add ~/.ssh/azure_repo > /dev/null 2>&1
+
+. "$HOME/.cargo/env"
+
+# set keyboard layout to us-intl
+setxkbmap us -variant intl
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
