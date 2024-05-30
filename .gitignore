@@ -9,6 +9,16 @@
 .config/nautilus
 .config/pulse
 .config/ibus
+.config/google-chrome
+.config/gtk-3.0
+.config/.gsd-keyboard.settings-ported
+.config/mimeapps.list
+.config/monitors.xml
+.config/user-dirs.dirs
+.config/user-dirs.locale
+.config/evolution/
+.config/gnome-session/
+.config/yay/
 
 .ssh/azure_repo
 .ssh/azure_repo.pub
