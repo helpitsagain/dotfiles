@@ -1,0 +1,4 @@
+panels are from http://misakinakahara.slmame.com/
+
+dark grey: #191919
+misaki yellow: #f5e188
