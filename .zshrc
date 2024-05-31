@@ -11,8 +11,8 @@ ssh-add ~/.ssh/azure_repo > /dev/null 2>&1
 
 . "$HOME/.cargo/env"
 
-# set keyboard layout to us-intl
-setxkbmap us -variant intl
+# set keyboard layout to us-intl in arch linux/i3wm (can't quite remember which)
+# setxkbmap us -variant intl
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
