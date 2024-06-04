@@ -7,6 +7,11 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldlevel = 20
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
+vim.opt.scrolloff = 5
+vim.opt.inccommand = 'split'
+vim.opt.wrap = false
+vim.opt.breakindent = true
+
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
