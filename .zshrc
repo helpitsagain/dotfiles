@@ -3,6 +3,10 @@ if [[ ":$PATH:" != *"$HOME/bin"* ]]; then
   export PATH="$HOME/bin:$PATH"
 fi  
 
+if [[ ":$PATH:" != *"$HOME/.local/bin"* ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi  
+
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 eval "$(ssh-agent -s)" > /dev/null 2>&1
