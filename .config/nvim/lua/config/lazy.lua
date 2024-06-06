@@ -1,4 +1,4 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   -- bootstrap lazy.nvim
@@ -8,22 +8,26 @@ end
 ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
+require('lazy').setup({
   spec = {
     -- add LazyVim and import its plugins
     {
-      "LazyVim/LazyVim",
-      import = "lazyvim.plugins",
+      'LazyVim/LazyVim',
+      import = 'lazyvim.plugins',
       opts = {
-        colorscheme = "catppuccin",
+        colorscheme = 'catppuccin',
       },
     },
     -- import any extras modules here
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { import = 'lazyvim.plugins.extras.lang.typescript' },
+    { import = 'lazyvim.plugins.extras.lang.json' },
+    { import = 'lazyvim.plugins.extras.lang.rust' },
+    { import = 'lazyvim.plugins.extras.linting.eslint' },
+    { import = 'lazyvim.plugins.extras.formatting.prettier' },
+    { import = 'lazyvim.plugins.extras.coding.copilot' },
+    { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
     -- import/override with your plugins
-    { import = "plugins" },
+    { import = 'plugins' },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
@@ -34,20 +38,20 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "catppuccin" } },
+  install = { colorscheme = { 'catppuccin' } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins
       disabled_plugins = {
-        "gzip",
+        'gzip',
         -- "matchit",
         -- "matchparen",
         -- "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
       },
     },
   },
