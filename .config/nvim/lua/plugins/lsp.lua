@@ -33,7 +33,7 @@ return {
     servers = {
 
       lua_ls = {
-        singel_file_support = true,
+        single_file_support = true,
 
         settings = {
 
