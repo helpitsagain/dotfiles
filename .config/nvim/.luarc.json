@@ -1,5 +1,4 @@
 {
-    "diagnostics.globals": [
-        "require"
-    ]
+  "diagnostics.globals": ["require"]
 }
+

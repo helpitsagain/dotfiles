@@ -15,8 +15,6 @@ keymap.set(
   { desc = 'Toggle Neotree', silent = true, noremap = true }
 )
 
--- TODO: set keymaps for neotree
-
 keymap.set({ 'n', 'v' }, 'x', '"_x', { desc = 'Delete without yanking', silent = true, noremap = true })
 
 keymap.set('n', '+', '<C-a>', { desc = 'Increment number', silent = true, noremap = true })
