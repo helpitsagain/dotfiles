@@ -19,6 +19,7 @@
 .config/evolution/
 .config/gnome-session/
 .config/yay/
+.config/github-copilot/hosts.json
 
 .ssh/azure_repo
 .ssh/azure_repo.pub
