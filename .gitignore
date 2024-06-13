@@ -25,6 +25,7 @@
 .ssh/azure_repo.pub
 .ssh/github
 .ssh/github.pub
+.config/github-copilot/hosts.json
 
 *.bak*
 *~
