@@ -1,0 +1,6 @@
+2024/06/01-18:07:31.088 e8f Creating DB /home/lucasm/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb since it was missing.
+2024/06/01-18:07:31.093 e8f Reusing MANIFEST /home/lucasm/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/MANIFEST-000001
+2024/06/01-23:20:42.912 e91 Level-0 table #5: started
+2024/06/01-23:20:42.922 e91 Level-0 table #5: 284994 bytes OK
+2024/06/01-23:20:42.924 e91 Delete type=0 #3
+2024/06/01-23:20:42.925 e91 Manual compaction at level-0 from (begin) .. (end); will stop at (end)
