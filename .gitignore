@@ -19,13 +19,12 @@
 .config/evolution/
 .config/gnome-session/
 .config/yay/
-.config/github-copilot/hosts.json
+.config/github-copilot/
 
 .ssh/azure_repo
 .ssh/azure_repo.pub
 .ssh/github
 .ssh/github.pub
-.config/github-copilot/hosts.json
 
 *.bak*
 *~
