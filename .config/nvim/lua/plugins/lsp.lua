@@ -1,3 +1,6 @@
+local lspconfig = require('lspconfig')
+local util = lspconfig.util
+
 return {
   -- MASON
   {
@@ -15,6 +18,7 @@ return {
         'eslint-lsp',
         'rust-analyzer',
         'json-lsp',
+        'pyright',
       })
     end,
   },
@@ -80,11 +84,11 @@ return {
 
       tsserver = {
         root_dir = function(fname)
-          return require('lspconfig/util').root_pattern('tsconfig.json')(fname)
-            or require('lspconfig/util').root_pattern('jsconfig.json')(fname)
-            or require('lspconfig/util').root_pattern('.git')(fname)
-            or require('lspconfig/util').root_pattern('.svn')(fname)
-            or require('lspconfig/util').root_pattern('.hg')(fname)
+          return util.root_pattern('tsconfig.json')(fname)
+            or util.root_pattern('jsconfig.json')(fname)
+            or util.root_pattern('.git')(fname)
+            or util.root_pattern('.svn')(fname)
+            or util.root_pattern('.hg')(fname)
         end,
         single_file_support = true,
         settings = {
@@ -109,7 +113,7 @@ return {
 
       rust_analyzer = {
         settings = {
-          ['rust-analyzer'] = {
+          ['rust_analyzer'] = {
             checkOnSave = {
               command = 'clippy',
             },
@@ -120,6 +124,72 @@ return {
               enable = true,
             },
           },
+        },
+      },
+
+      pyright = {
+        cmd = { 'pyright-langserver', '--stdio' },
+        filetypes = { 'python' },
+        root_dir = function(fname)
+          local root_files = {
+            'pyproject.toml',
+            'setup.py',
+            'setup.cfg',
+            'requirements.txt',
+            'Pipfile',
+            'pyrightconfig.json',
+            '.git',
+          }
+          return util.root_pattern(unpack(root_files))(fname)
+        end,
+        single_file_support = true,
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = 'openFilesOnly',
+            },
+          },
+        },
+      },
+      commands = {
+        PyrightOrganizeImports = {
+          function()
+            local params = {
+              command = 'pyright.organizeimports',
+              arguments = { vim.uri_from_bufnr(0) },
+            }
+
+            local clients = util.get_lsp_clients({
+              bufnr = vim.api.nvim_get_current_buf(),
+              name = 'pyright',
+            })
+            for _, client in ipairs(clients) do
+              client.request('workspace/executeCommand', params, nil, 0)
+            end
+          end,
+          description = 'Organize Imports',
+        },
+        PyrightSetPythonPath = {
+          function(path)
+            local clients = util.get_lsp_clients({
+              bufnr = vim.api.nvim_get_current_buf(),
+              name = 'pyright',
+            })
+            for _, client in ipairs(clients) do
+              if client.settings then
+                client.settings.python = vim.tbl_deep_extend('force', client.settings.python, { pythonPath = path })
+              else
+                client.config.settings =
+                  vim.tbl_deep_extend('force', client.config.settings, { python = { pythonPath = path } })
+              end
+              client.notify('workspace/didChangeConfiguration', { settings = nil })
+            end
+          end,
+          description = 'Reconfigure pyright with the provided python path',
+          nargs = 1,
+          complete = 'file',
         },
       },
     },
