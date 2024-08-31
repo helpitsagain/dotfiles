@@ -137,3 +137,4 @@ if grep -q "microsoft" /proc/version > /dev/null 2>&1; then
     fi
 fi
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
