@@ -1,4 +1,5 @@
 .config/nvim/lazy-lock.json
+.config/nvim/lazyvim.json
 .config/chromium/
 .config/dconf/
 .config/enchant/
