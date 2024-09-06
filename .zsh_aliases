@@ -41,6 +41,11 @@ alias branch='git branch'
 alias stash='git stash'
 alias log='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset" --date=short --abbrev-commit -10'
 
+#Comandos da AWRIGHT
+## npm
+alias npmi='rm -rfv node_modules && rm -fv package-lock.json && npm i'
+alias npmd='npm run dev'
+
 # Comandos da Bem
 ## pnpm
 alias pi='rm -rfv node_modules && rm -fv pnpm-lock.yaml && pnpm i'
