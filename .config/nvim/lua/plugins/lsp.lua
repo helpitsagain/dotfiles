@@ -14,7 +14,6 @@ return {
         'shfmt',
         'css-lsp',
         'html-lsp',
-        'typescript-language-server',
         'eslint-lsp',
         'rust-analyzer',
         'json-lsp',
@@ -82,35 +81,6 @@ return {
 
       jsonls = {},
 
-      tsserver = {
-        root_dir = function(fname)
-          return util.root_pattern('tsconfig.json')(fname)
-            or util.root_pattern('jsconfig.json')(fname)
-            or util.root_pattern('.git')(fname)
-            or util.root_pattern('.svn')(fname)
-            or util.root_pattern('.hg')(fname)
-        end,
-        single_file_support = true,
-        settings = {
-          documentFormatting = false,
-          typescript = {
-            format = 'prettier',
-            formatOptions = {
-              tabWidth = 2,
-              singleQuote = true,
-              trailingComma = 'all',
-              bracketSpacing = true,
-              semi = false,
-              useTabs = false,
-            },
-            inlay_hints = {
-              chainingHints = true,
-              parameterHints = true,
-            },
-          },
-        },
-      },
-
       rust_analyzer = {
         settings = {
           ['rust_analyzer'] = {
@@ -152,44 +122,44 @@ return {
             },
           },
         },
-      },
-      commands = {
-        PyrightOrganizeImports = {
-          function()
-            local params = {
-              command = 'pyright.organizeimports',
-              arguments = { vim.uri_from_bufnr(0) },
-            }
+        commands = {
+          PyrightOrganizeImports = {
+            function()
+              local params = {
+                command = 'pyright.organizeimports',
+                arguments = { vim.uri_from_bufnr(0) },
+              }
 
-            local clients = util.get_lsp_clients({
-              bufnr = vim.api.nvim_get_current_buf(),
-              name = 'pyright',
-            })
-            for _, client in ipairs(clients) do
-              client.request('workspace/executeCommand', params, nil, 0)
-            end
-          end,
-          description = 'Organize Imports',
-        },
-        PyrightSetPythonPath = {
-          function(path)
-            local clients = util.get_lsp_clients({
-              bufnr = vim.api.nvim_get_current_buf(),
-              name = 'pyright',
-            })
-            for _, client in ipairs(clients) do
-              if client.settings then
-                client.settings.python = vim.tbl_deep_extend('force', client.settings.python, { pythonPath = path })
-              else
-                client.config.settings =
-                  vim.tbl_deep_extend('force', client.config.settings, { python = { pythonPath = path } })
+              local clients = util.get_lsp_clients({
+                bufnr = vim.api.nvim_get_current_buf(),
+                name = 'pyright',
+              })
+              for _, client in ipairs(clients) do
+                client.request('workspace/executeCommand', params, nil, 0)
               end
-              client.notify('workspace/didChangeConfiguration', { settings = nil })
-            end
-          end,
-          description = 'Reconfigure pyright with the provided python path',
-          nargs = 1,
-          complete = 'file',
+            end,
+            description = 'Organize Imports',
+          },
+          PyrightSetPythonPath = {
+            function(path)
+              local clients = util.get_lsp_clients({
+                bufnr = vim.api.nvim_get_current_buf(),
+                name = 'pyright',
+              })
+              for _, client in ipairs(clients) do
+                if client.settings then
+                  client.settings.python = vim.tbl_deep_extend('force', client.settings.python, { pythonPath = path })
+                else
+                  client.config.settings =
+                    vim.tbl_deep_extend('force', client.config.settings, { python = { pythonPath = path } })
+                end
+                client.notify('workspace/didChangeConfiguration', { settings = nil })
+              end
+            end,
+            description = 'Reconfigure pyright with the provided python path',
+            nargs = 1,
+            complete = 'file',
+          },
         },
       },
     },
