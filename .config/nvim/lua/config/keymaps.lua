@@ -33,3 +33,6 @@ keymap.del('n', 'H')
 keymap.set('n', '<Tab>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next buffer', silent = true, noremap = true })
 keymap.del('n', 'L')
 keymap.set('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Previous buffer', silent = true, noremap = true })
+
+keymap.set('n', 'n', 'nzzzv', { desc = 'Center next search result', silent = true, noremap = true })
+keymap.set('n', 'N', 'Nzzzv', { desc = 'Center prev search result', silent = true, noremap = true })
