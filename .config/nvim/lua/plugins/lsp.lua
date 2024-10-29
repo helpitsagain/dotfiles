@@ -18,6 +18,8 @@ return {
         'rust-analyzer',
         'json-lsp',
         'pyright',
+        'csharp-language-server',
+        'omnisharp',
       })
     end,
   },
@@ -162,6 +164,8 @@ return {
           },
         },
       },
+
+      csharp_ls = {},
     },
   },
 }

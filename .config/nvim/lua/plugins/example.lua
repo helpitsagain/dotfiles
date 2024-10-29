@@ -138,7 +138,10 @@ return {
         'vim',
         'yaml',
         'rust',
+        'csharp',
       },
+      indent = { enabled = true },
+      highlight = { enabled = true },
     },
   },
 
