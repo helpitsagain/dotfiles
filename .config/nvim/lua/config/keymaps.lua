@@ -36,3 +36,10 @@ keymap.set('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Previous bu
 
 keymap.set('n', 'n', 'nzzzv', { desc = 'Center next search result', silent = true, noremap = true })
 keymap.set('n', 'N', 'Nzzzv', { desc = 'Center prev search result', silent = true, noremap = true })
+
+keymap.set(
+  'n',
+  '<Leader>gt',
+  '<cmd>ToggleBlameLine<cr>',
+  { desc = 'Toggle Git Blame Line', silent = true, noremap = true }
+)
