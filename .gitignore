@@ -31,3 +31,4 @@
 *.bak*
 *~
 *.old*
+*node_modules*
