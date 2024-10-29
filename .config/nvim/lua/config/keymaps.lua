@@ -4,6 +4,22 @@
 
 local keymap = vim.keymap
 
+local copilot_enabled = true
+
+function ToggleCopilot()
+  if copilot_enabled then
+    -- Disable Copilot
+    vim.cmd('Copilot disable')
+    copilot_enabled = false
+    print('Copilot disabled')
+  else
+    -- Enable Copilot
+    vim.cmd('Copilot enable')
+    copilot_enabled = true
+    print('Copilot enabled')
+  end
+end
+
 keymap.set('n', ';', ':', { desc = 'Command', silent = true, noremap = true })
 
 keymap.set('i', 'jk', '<esc>', { desc = 'Esc', silent = true, noremap = true })
@@ -42,4 +58,11 @@ keymap.set(
   '<Leader>gt',
   '<cmd>ToggleBlameLine<cr>',
   { desc = 'Toggle Git Blame Line', silent = true, noremap = true }
+)
+
+keymap.set(
+  'n',
+  '<Leader>gp',
+  '<cmd>lua ToggleCopilot()<cr>',
+  { desc = 'Toggle Copilot', silent = true, noremap = true }
 )
