@@ -31,6 +31,19 @@ return {
             return a.type < b.type
           end
         end, -- this sorts files and directories descendantly
+
+        event_handlers = {
+          { -- this enables relative line numbers
+            event = 'neo_tree_buffer_enter',
+            ---@diagnostic disable-next-line: unused-local
+            handler = function(arg)
+              vim.cmd([[
+                setlocal relativenumber
+              ]])
+            end,
+          },
+        },
+
         default_component_configs = {
           container = {
             enable_character_fade = true,
@@ -103,10 +116,12 @@ return {
             enabled = false,
           },
         },
+
         -- A list of functions, each representing a global custom command
         -- that will be available in all sources (if not overridden in `opts[source_name].commands`)
         -- see `:h neo-tree-custom-commands-global`
         commands = {},
+
         window = {
           position = 'left',
           width = 40,
@@ -203,7 +218,9 @@ return {
             end,
           },
         },
+
         nesting_rules = {},
+
         filesystem = {
           filtered_items = {
             visible = false, -- when true, they will just be displayed differently than normal items
@@ -275,6 +292,7 @@ return {
 
           commands = {}, -- Add a custom command or override a global one using the same function name
         },
+
         buffers = {
           follow_current_file = {
             enabled = true, -- This will find and focus the file in the active buffer every time
@@ -298,6 +316,7 @@ return {
             },
           },
         },
+
         git_status = {
           window = {
             position = 'float',
@@ -321,7 +340,7 @@ return {
         },
       })
 
-      vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+      -- vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
     end,
   },
 
