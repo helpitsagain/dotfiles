@@ -81,6 +81,7 @@ return {
   -- change some telescope options and a keymap to browse plugin files
   {
     'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
     keys = {
       -- add a keymap to browse plugin files
       -- stylua: ignore
