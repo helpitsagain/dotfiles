@@ -40,3 +40,23 @@ vim.opt.splitright = true
 vim.opt.splitkeep = 'cursor'
 
 vim.opt.formatoptions:append('r')
+
+vim.diagnostic.config({
+  virtual_text = false,
+  update_in_insert = true,
+  severity_sort = true,
+})
+
+vim.lsp.handlers['textDocument/diagnostic'] =
+  vim.lsp.with(vim.lsp.diagnostic.on_diagnostic, {
+    virtual_text = false,
+    update_in_insert = true,
+    severity_sort = true,
+  })
+
+vim.lsp.handlers['textDocument/publishDiagnostics'] =
+  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+    update_in_insert = true,
+    severity_sort = true,
+  })
