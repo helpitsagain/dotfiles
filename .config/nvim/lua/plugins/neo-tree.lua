@@ -210,6 +210,7 @@ return {
                 '5. Filename without extension: ' .. results[5],
                 '6. Extension of the filename: ' .. results[6],
               }, { prompt = 'Choose to copy to clipboard:' }, function(choice)
+                ---@diagnostic disable-next-line: need-check-nil, undefined-field
                 local i = tonumber(choice:sub(1, 1))
                 local result = results[i]
                 vim.fn.setreg('"', result)
