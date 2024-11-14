@@ -4,25 +4,10 @@
 
 local keymap = vim.keymap
 
-local copilot_enabled = true
-
-function ToggleCopilot()
-  if copilot_enabled then
-    -- Disable Copilot
-    vim.cmd('Copilot disable')
-    copilot_enabled = false
-    print('Copilot disabled')
-  else
-    -- Enable Copilot
-    vim.cmd('Copilot enable')
-    copilot_enabled = true
-    print('Copilot enabled')
-  end
-end
-
 keymap.set('n', ';', ':', { desc = 'Command', silent = true, noremap = true })
 
 keymap.set('i', 'jk', '<esc>', { desc = 'Esc', silent = true, noremap = true })
+keymap.set('i', 'kj', '<esc>', { desc = 'Esc', silent = true, noremap = true })
 
 keymap.set(
   { 'n', 'i', 'v' },
@@ -60,9 +45,24 @@ keymap.set(
   { desc = 'Toggle Git Blame Line', silent = true, noremap = true }
 )
 
-keymap.set(
-  'n',
-  '<Leader>gp',
-  '<cmd>lua ToggleCopilot()<cr>',
-  { desc = 'Toggle Copilot', silent = true, noremap = true }
-)
+keymap.set('v', '~', 'y<cmd>lua TwiddleCaseRegister()<CR>gv""Pgv', { noremap = true, silent = true })
+
+-- custom functions
+function TwiddleCase(str)
+  if str == str:upper() then
+    return str:lower()
+  elseif str == str:lower() then
+    -- Capitalize the first letter of each word
+    return str:gsub('(%l)(%w*)', function(a, b)
+      return a:upper() .. b
+    end)
+  else
+    return str:upper()
+  end
+end
+
+function TwiddleCaseRegister()
+  local text = vim.fn.getreg('"')
+  local twiddled = TwiddleCase(text)
+  vim.fn.setreg('', twiddled)
+end
