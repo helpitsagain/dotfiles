@@ -47,6 +47,10 @@ keymap.set(
 
 keymap.set('v', '~', 'y<cmd>lua TwiddleCaseRegister()<CR>gv""Pgv', { noremap = true, silent = true })
 
+keymap.set('x', 'p', 'P', { noremap = true, silent = true })
+keymap.set('x', 'P', 'p', { noremap = true, silent = true })
+keymap.set({ 'n', 'x' }, '<leader>p', [["0p]], { noremap = true, silent = true, desc = 'paste from yank register' }) -- thanks theprimeagem
+
 -- custom functions
 function TwiddleCase(str)
   if str == str:upper() then
