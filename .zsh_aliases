@@ -44,7 +44,7 @@ alias log='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset 
 #Comandos da AWRIGHT
 ## npm
 alias npmi='rm -rfv node_modules && rm -fv package-lock.json && npm i'
-alias npms='npm run dev'
+alias npmrd='npm run dev'
 
 # Comandos da Bem
 ## pnpm
