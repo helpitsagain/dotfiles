@@ -6,10 +6,23 @@ return {
   --   cmd = 'Copilot',
   --   event = 'InsertEnter',
   --   opts = {
-  --     -- I don't find the panel useful.
-  --     panel = { enabled = false },
+  --     panel = {
+  --       enabled = true,
+  --       auto_refresh = false,
+  --       keymap = {
+  --         jump_prev = '[[',
+  --         jump_next = ']]',
+  --         accept = '<CR>',
+  --         refresh = 'gr',
+  --       },
+  --       layout = {
+  --         position = 'bottom', -- | top | left | right
+  --         ratio = 0.4,
+  --       },
+  --     },
   --     suggestion = {
-  --       auto_trigger = true,
+  --       enalbed = true,
+  --       auto_trigger = false,
   --       -- Use alt to interact with Copilot.
   --       keymap = {
   --         -- Disable the built-in mapping, we'll configure it in nvim-cmp.
@@ -18,10 +31,21 @@ return {
   --         accept_line = '<M-l>',
   --         next = '<M-]>',
   --         prev = '<M-[>',
-  --         dismiss = '<c-]>',
+  --         dismiss = '/',
   --       },
   --     },
-  --     filetypes = { markdown = true },
+  --     filetypes = {
+  --       markdown = true,
+  --       typescript = true,
+  --       typescriptreact = true,
+  --       javascript = true,
+  --       javascriptreact = true,
+  --       css = true,
+  --       scss = true,
+  --       html = true,
+  --       gitcommit = true,
+  --     },
+  --     copilot_node_command = 'node',
   --   },
   --   config = function(_, opts)
   --     local cmp = require('cmp')

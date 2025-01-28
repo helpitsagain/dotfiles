@@ -47,16 +47,16 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
-vim.lsp.handlers['textDocument/diagnostic'] =
-  vim.lsp.with(vim.lsp.diagnostic.on_diagnostic, {
-    virtual_text = false,
-    update_in_insert = true,
-    severity_sort = true,
-  })
+vim.lsp.handlers['textDocument/diagnostic'] = vim.lsp.with(vim.lsp.diagnostic.on_diagnostic, {
+  virtual_text = false,
+  update_in_insert = true,
+  severity_sort = true,
+})
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] =
-  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    update_in_insert = true,
-    severity_sort = true,
-  })
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = false,
+  update_in_insert = true,
+  severity_sort = true,
+})
+
+vim.g.snacks_animate = false
