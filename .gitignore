@@ -22,6 +22,15 @@
 .config/yay/
 .config/github-copilot/
 .config/create-next-app-nodejs
+.config/burn-my-windows
+.config/dleyna-renderer-service.conf
+.config/.gsd-keyboard.settings-ported
+.config/dleyna-renderer-service.conf 
+.config/mimeapps.list
+.config/monitors.xml
+.config/monitors.xml~
+.config/user-dirs.dirs
+.config/user-dirs.locale
 
 .ssh/azure_repo
 .ssh/azure_repo.pub
