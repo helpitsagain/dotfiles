@@ -16,22 +16,22 @@ fi
 
 if [ "$distro" = "Arch" ]; then
   while true; do
-    echo "Do you want to install yay? [y/N]";
-    read install_yay;
+    echo "Do you want to install yay? [y/N]"
+    read install_yay
     case "$install_yay" in
     [Yy]*)
-      cd "$HOME";
-      sudo pacman -S --needed git base-devel;
-      git clone https://aur.archlinux.org/yay.git "$HOME/yay";
-      cd "$HOME/yay" && makepkg -si;
-      sleep 1;
-      yay -Y --gendb;
-      yay -Syu --devel;
-      cd "$dotfiles_dir";
+      cd "$HOME"
+      sudo pacman -S --needed git base-devel
+      git clone https://aur.archlinux.org/yay.git "$HOME/yay"
+      cd "$HOME/yay" && makepkg -si
+      sleep 1
+      yay -Y --gendb
+      yay -Syu --devel
+      cd "$dotfiles_dir"
       break
       ;;
     [Nn]* | "")
-      echo "Skipping yay installation";
+      echo "Skipping yay installation"
       break
       ;;
     *)
@@ -42,11 +42,11 @@ if [ "$distro" = "Arch" ]; then
 fi
 
 while true; do
-  echo "Do you want to install dependencies? [y/N]";
-  read install_deps;
+  echo "Do you want to install dependencies? [y/N]"
+  read install_deps
   case "$install_deps" in
   [Yy]*)
-    echo "Installing dependencies";
+    echo "Installing dependencies"
     if [ "$distro" = "Ubuntu" ]; then
       sudo apt install -y git stow unzip nodejs npm zsh
     elif [ "$distro" = "Arch" ]; then
@@ -55,24 +55,29 @@ while true; do
     # elif [ "$distro" = "RHEL" ]; then
     #   sudo yum install -y git stow unzip nodejs npm zsh
     fi
-    echo "Dependencies installed successfully!";
-
-    echo "Set zsh as default shell? [Y/n]"
-    read set_default_zsh;
-    case "$set_default_zsh" in
+    echo "Dependencies installed successfully!"
+    while true; do
+      echo "Set zsh as default shell? [Y/n]"
+      read set_default_zsh
+      case "$set_default_zsh" in
       [Yy]* | "")
         chsh -s $(which zsh)
-        echo "You should log out and back in to see the change!";
+        echo "You should log out and back in to see the change!"
         break
         ;;
       [Nn]*)
-        echo "Skipping zsh installation";
+        echo "Skipping zsh installation"
         break
         ;;
+      *)
+        echo "Invalid input. Please enter either \"y\" or \"n\", or leave input blank."
+        ;;
+      esac
+    done
     break
     ;;
   [Nn]* | "")
-    echo "Skipping dependency installation";
+    echo "Skipping dependency installation"
     break
     ;;
   *)
@@ -82,11 +87,11 @@ while true; do
 done
 
 while true; do
-  echo "Do you want to install packages? [y/N]";
+  echo "Do you want to install packages? [y/N]"
   read install_pkgs
   case "$install_pkgs" in
   [Yy]*)
-    echo "Installing packages";
+    echo "Installing packages"
     if [ "$distro" = "Ubuntu" ]; then
       sudo apt install -y software-properties-common
       sudo add-apt-repository ppa:neovim-ppa/unstable
@@ -98,11 +103,11 @@ while true; do
     # elif [ "$distro" = "RHEL" ]; then
     #   sudo yum install -y neovim tmux ranger neofetch
     fi
-    echo "Packages installed successfully!";
+    echo "Packages installed successfully!"
     break
     ;;
   [Nn]* | "")
-    echo "Skipping package installation";
+    echo "Skipping package installation"
     break
     ;;
   *)
@@ -112,11 +117,11 @@ while true; do
 done
 
 while true; do
-  echo "Do you want to install FiraCode font? [y/N]";
-  read install_firacode;
+  echo "Do you want to install FiraCode font? [y/N]"
+  read install_firacode
   case "$install_firacode" in
   [Yy]*)
-    echo "Installing FiraCode";
+    echo "Installing FiraCode"
     if [ "$distro" = "Ubuntu" ]; then
       mkdir -p "$HOME/.local/share/fonts"
       cd "$HOME/.local/share/fonts"
@@ -145,11 +150,11 @@ while true; do
     #   fc-cache -fv
     fi
     cd "$dotfiles_dir"
-    echo "FiraCode font installed successfully!";
+    echo "FiraCode font installed successfully!"
     break
     ;;
   [Nn]* | "")
-    echo "Skipping FiraCode installation";
+    echo "Skipping FiraCode installation"
     break
     ;;
   *)
