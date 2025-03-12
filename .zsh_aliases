@@ -30,6 +30,7 @@ fi
 alias lzg='lazygit'
 alias n='nvim'
 alias y='yazi'
+alias cls="clear"
 
 ## git
 alias status='git status'
