@@ -51,6 +51,8 @@ keymap.set('x', 'p', 'P', { noremap = true, silent = true })
 keymap.set('x', 'P', 'p', { noremap = true, silent = true })
 keymap.set({ 'n', 'x' }, '<leader>p', [["0p]], { noremap = true, silent = true, desc = 'paste from yank register' }) -- thanks theprimeagem
 
+keymap.set('n', '<leader>fl', require('oil').toggle_float, { desc = 'toggle oil float' })
+
 -- custom functions
 function TwiddleCase(str)
   if str == str:upper() then
