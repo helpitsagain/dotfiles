@@ -17,9 +17,10 @@ return {
         'eslint-lsp',
         'rust-analyzer',
         'json-lsp',
-        'pyright',
         'csharp-language-server',
         'omnisharp',
+        'pyright',
+        'black',
       })
     end,
   },
@@ -99,73 +100,20 @@ return {
         },
       },
 
-      pyright = {
-        cmd = { 'pyright-langserver', '--stdio' },
-        filetypes = { 'python' },
-        root_dir = function(fname)
-          local root_files = {
-            'pyproject.toml',
-            'setup.py',
-            'setup.cfg',
-            'requirements.txt',
-            'Pipfile',
-            'pyrightconfig.json',
-            '.git',
-          }
-          return util.root_pattern(unpack(root_files))(fname)
-        end,
-        single_file_support = true,
-        settings = {
-          python = {
-            analysis = {
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-              diagnosticMode = 'openFilesOnly',
-            },
-          },
-        },
-        commands = {
-          PyrightOrganizeImports = {
-            function()
-              local params = {
-                command = 'pyright.organizeimports',
-                arguments = { vim.uri_from_bufnr(0) },
-              }
-
-              local clients = util.get_lsp_clients({
-                bufnr = vim.api.nvim_get_current_buf(),
-                name = 'pyright',
-              })
-              for _, client in ipairs(clients) do
-                client.request('workspace/executeCommand', params, nil, 0)
-              end
-            end,
-            description = 'Organize Imports',
-          },
-          PyrightSetPythonPath = {
-            function(path)
-              local clients = util.get_lsp_clients({
-                bufnr = vim.api.nvim_get_current_buf(),
-                name = 'pyright',
-              })
-              for _, client in ipairs(clients) do
-                if client.settings then
-                  client.settings.python = vim.tbl_deep_extend('force', client.settings.python, { pythonPath = path })
-                else
-                  client.config.settings =
-                    vim.tbl_deep_extend('force', client.config.settings, { python = { pythonPath = path } })
-                end
-                client.notify('workspace/didChangeConfiguration', { settings = nil })
-              end
-            end,
-            description = 'Reconfigure pyright with the provided python path',
-            nargs = 1,
-            complete = 'file',
-          },
-        },
-      },
-
       csharp_ls = {},
+
+      pyright = {},
     },
+  },
+
+  -- NONE-LS
+  {
+    'nvimtools/none-ls.nvim',
+    opts = function(_, opts)
+      local null_ls = require('null-ls')
+      vim.list_extend(opts.sources, {
+        null_ls.builtins.formatting.black,
+      })
+    end,
   },
 }
