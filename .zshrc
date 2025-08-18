@@ -24,8 +24,13 @@ ssh-add ~/.ssh/azure_repo > /dev/null 2>&1
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# auto start tmux
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+# auto start tmux except on VS Code
+if command -v tmux &> /dev/null \
+   && [ -n "$PS1" ] \
+   && [[ ! "$TERM" =~ screen ]] \
+   && [[ ! "$TERM" =~ tmux ]] \
+   && [ -z "$TMUX" ] \
+   && [ -z "$VSCODE_IPC_HOOK_CLI" ]; then
   exec tmux
 fi
 
