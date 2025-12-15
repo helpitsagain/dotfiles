@@ -3,8 +3,9 @@ local util = lspconfig.util
 
 return {
   -- MASON
+  --
   {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         'stylua',
