@@ -34,10 +34,8 @@
 .config/btop/btop.log
 .nvm/versions/*
 
-.ssh/azure_repo
-.ssh/azure_repo.pub
-.ssh/github
-.ssh/github.pub
+.ssh/**
+!./ssh/config
 
 *.bak*
 *~
