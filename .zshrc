@@ -96,13 +96,6 @@ ZSH_THEME="robbyrussell"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -157,3 +150,16 @@ export PATH="$PATH:$HOME/.rvm/bin"
 cl() {
   cd "$1" && ll
 }
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  git
+  git-flow
+  # zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

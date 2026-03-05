@@ -2,7 +2,7 @@
 ## configure aliases
 alias aliasconf='nvim ~/.zsh_aliases'
 alias aliassource='source ~/.zsh_aliases'
-alias aliascat='bat ~/.zsh_aliases'
+alias aliascat='cat ~/.zsh_aliases'
 
 ## configure tmux
 alias tsource='tmux source ~/.config/tmux/tmux.conf'
@@ -31,6 +31,7 @@ alias lzg='lazygit'
 alias n='nvim'
 alias y='yazi'
 alias cls="clear"
+alias cat='batcat'
 
 ## git
 alias status='git status'
