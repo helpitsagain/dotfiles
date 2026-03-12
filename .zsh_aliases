@@ -31,7 +31,11 @@ alias lzg='lazygit'
 alias n='nvim'
 alias y='yazi'
 alias cls="clear"
-alias cat='batcat'
+if command -v bat >/dev/null 2>&1; then
+  alias cat='bat'
+elif command -v batcat >/dev/null 2>&1; then
+  alias cat='batcat'
+fi
 
 ## git
 alias status='git status'
@@ -45,23 +49,3 @@ alias branch='git branch'
 alias stash='git stash'
 alias log='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset" --date=short --abbrev-commit -10'
 
-#Comandos da AWRIGHT
-## npm
-alias npmi='rm -rfv node_modules && npm i'
-alias npmrd='npm run dev'
-
-# Comandos da Bem
-## pnpm
-alias pi='rm -rfv node_modules && rm -fv pnpm-lock.yaml && pnpm i'
-alias pb='pnpm build'
-alias ps='pnpm start'
-alias proot='cd ~/projetos/arquitetura/mfe-root-web && tomaster && pi && pb && ps'
-alias pe='pnpm test:e2e'
-
-## git
-alias tomaster='git checkout master && git reset --hard origin/master && git pull origin master'
-
-## docker
-alias dcinfra='docker compose -f docker-compose.yaml up -d --force-recreate'
-alias dcapi='docker compose -f docker-compose-api.yaml up -d --force-recreate'
-alias dcmfe='docker compose -f docker-compose-bemweb.yaml up -d --force-recreate'

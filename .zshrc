@@ -7,6 +7,10 @@ if [[ ":$PATH:" != *"$HOME/.local/bin"* ]]; then
   export PATH="$HOME/.local/bin:$PATH"
 fi  
 
+# git config
+git config --global core.pager "less -F"
+git config --global alias.lg "log --oneline --graph --decorate --all"
+
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 eval "$(ssh-agent -s)" > /dev/null 2>&1
@@ -96,6 +100,17 @@ ZSH_THEME="robbyrussell"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  git
+  git-flow
+  # zsh-autosuggestions
+)
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -151,15 +166,9 @@ cl() {
   cd "$1" && ll
 }
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  git-flow
-  # zsh-autosuggestions
-  zsh-syntax-highlighting
-)
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# configures zsh-syntax-highlighting whether it's running on ubuntu or arch distros
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi

@@ -34,6 +34,7 @@
 .config/btop/btop.log
 .config/Code
 .nvm/versions/*
+.nvm/.cache/*
 
 .ssh/**
 !./ssh/config
