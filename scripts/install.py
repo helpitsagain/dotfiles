@@ -1,163 +1,223 @@
 #!/usr/bin/env python
 import os
+import shutil
 import subprocess
 
-def get_dotfiles_dir():
-    # shell command to get script's dir
-    result = subprocess.run(['dirname', os.path.realpath(__file__)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    # check if command was successful
-    if result.returncode == 0: 
-        script_dir = result.stdout.strip()
-        dotfiles_dir = script_dir[:script_dir.rindex('/')] # cuts off script folder from path
-        return dotfiles_dir
-    print(f'Error: {result.stderr}')
-    return ''
 
-def get_distro():
-    with open('/etc/os-release', 'r') as f:
-        lines = f.readlines()
-        for line in lines:
-            if line.startswith('ID_LIKE='):
-                return line.split('=')[1].strip().lower()
-        for line in lines:
-            if line.startswith('ID='):
-                return line.split('=')[1].strip().lower()
-        raise Exception('Unable to detect Linux distribution')
+def get_dotfiles_dir() -> str:
+    return os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
-def run_command(command):
-    result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    if result.returncode != 0:
-        if 'is up to date -- skipping' in result.stderr: # checks if error indicates package is already up to date
-            return True
-        print(f'Error: {result.stderr}')
-        return False
+
+def detect_distro() -> str:
+    if shutil.which("apt"):
+        return "Ubuntu"
+    if shutil.which("pacman"):
+        return "Arch"
+    if shutil.which("dnf"):
+        return "Fedora"
+    if shutil.which("yum"):
+        return "RHEL"
+    return "Unknown"
+
+
+def run_command(command: str) -> bool:
+    result = subprocess.run(command, shell=True, text=True)
+    return result.returncode == 0
+
+
+def install_yay(dotfiles_dir: str) -> bool:
+    home_dir = os.path.expanduser("~")
+    commands = [
+        "cd \"$HOME\"",
+        "sudo pacman -S --needed git base-devel",
+        "git clone https://aur.archlinux.org/yay.git \"$HOME/yay\"",
+        "cd \"$HOME/yay\" && makepkg -si",
+        "sleep 1",
+        "yay -Y --gendb",
+        "yay -Syu --devel",
+        f"cd \"{dotfiles_dir}\"",
+    ]
+    for cmd in commands:
+        if not run_command(cmd):
+            return False
     return True
 
-def install_yay():
-    home_dir = os.path.expanduser('~')
-    yay_dir = os.path.join(home_dir, 'yay')
-    commands = [
-        'sudo pacman -S git base-devel --noconfirm'
-        f'git clone https://aur.archlinux.org/yay.git {yay_dir}',
-        f'cd {yay_dir} && makepkg -si',
-        'yay -Y --gendb --noconfirm',
-        'yay -Syu --devel --noconfirm',
-    ]
-    for cmd in commands:
-        if not run_command(cmd):
-            return
 
-def install_dependencies(distro: str):
-    commands = []
-    if distro == 'debian':
-        commands.extend([
-            'sudo apt update -y && sudo apt upgrade -y',
-            'sudo apt install -y git stow unzip nodejs npm python3',
-        ])
-    elif distro == 'arch':
-        commands.extend([
-            'sudo pacman -Syu --noconfirm',
-            'sudo pacman -S git stow unzip nodejs npm python --noconfirm',
-        ])
-    commands.append('sudo npm install -g pyright')
-    for cmd in commands:
-        if not run_command(cmd):
-            return
+def install_dependencies(distro: str) -> bool:
+    if distro == "Ubuntu":
+        return run_command(
+            "sudo apt install -y git stow unzip nodejs npm zsh fcitx5 fcitx5-config-qt"
+        )
+    if distro == "Arch":
+        return run_command(
+            "sudo pacman -S git stow unzip nodejs npm zsh fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt fcitx5-xkb --noconfirm"
+        )
+    print("Unsupported distro for dependency installation")
+    return False
 
-def install_core_packages(distro: str):
-    commands = []
-    if distro == 'debian':
-        commands.append([
-            'sudo add-apt-repository -y ppa:neovim-ppa/unstable',
-            'sudo apt update -y',
-            'sudo apt install -y neovim tmux ranger neofetch',
-        ])
-    elif distro == 'arch':
-        commands.append('sudo pacman -S neovim tmux ranger neofetch --noconfirm')
-    for cmd in commands:
-        if not run_command(cmd):
-            return
 
-# TODO: figure out optional packages
-def install_optional_packages(distro: str):
-    commands = []
-    if distro == 'debian':
-        commands.append([
-            'sudo apt install -y google-chrome-stable gnome-tweaks',
-        ])
-    elif distro == 'arch':
-        commands.append('yay -S google-chrome gnome-tweaks --noconfirm')
-    for cmd in commands:
-        if not run_command(cmd):
-            return
+def setup_fcitx5_autostart() -> bool:
+    autostart_dir = os.path.expanduser("~/.config/autostart")
+    try:
+        os.makedirs(autostart_dir, exist_ok=True)
+    except OSError:
+        print("Failed to create autostart directory")
+        return False
 
-def stow_files():
-    dotfiles_dir = get_dotfiles_dir()
-    commands = [
-        'rm -rf ~/.bashrc* ~/.bash_aliases* ~/.zshrc* ~/.zshenv* ~/.zsh_aliases*',
-        f'cd {dotfiles_dir} && stow .',
-        'sudo ln ~/bin/oh-my-posh /usr/bin/'
-    ]
-    for cmd in commands:
-        if not run_command(cmd):
-            return
+    desktop_content = """[Desktop Entry]
+Name=Fcitx5
+GenericName=Input Method
+Comment=Start Input Method
+Exec=fcitx5
+Icon=fcitx5
+Terminal=false
+Type=Application
+Categories=System;Utility;
+X-GNOME-AutoRestart=false
+X-GNOME-Autostart-Phase=Applications
+X-KDE-autostart-after=panel
+"""
 
-distro = get_distro()
+    desktop_file = os.path.join(autostart_dir, "fcitx5.desktop")
+    try:
+        with open(desktop_file, "w", encoding="utf-8") as f:
+            f.write(desktop_content)
+    except OSError:
+        print("Failed to create fcitx5 autostart file")
+        return False
 
-if distro == 'arch':
+    return True
+
+
+def maybe_set_default_zsh() -> None:
     while True:
-        choose_install_yay = input('Do you want to install yay? [y/N] ').lower().strip()
-        if choose_install_yay in ['yes', 'y']:
-            install_yay()
-            break
-        if choose_install_yay in ['no', 'n', '']:
-           print('Skipping yay')
-           break
+        answer = input("Set zsh as default shell? [Y/n] ").lower().strip()
+        if answer in ["yes", "y", ""]:
+            if run_command("chsh -s $(which zsh)"):
+                print("You should log out and back in to see the change!")
+            else:
+                print("Failed to set zsh as default shell")
+            return
+        if answer in ["no", "n"]:
+            print("Skipping zsh installation")
+            return
         print('Invalid input. Please enter either "y" or "n", or leave input blank.')
 
-while True:
-    choose_install_dependencies = input('Do you want to install dependencies? [y/N] ').lower().strip()
-    if choose_install_dependencies in ['yes', 'y']:
-        print('Installing dependencies')
-        install_dependencies(distro)
-        break
-    if choose_install_dependencies in ['no', 'n', '']:
-        print('Skipping dependencies')
-        break
-    print('Invalid input. Please enter either "y" or "n", or leave input blank.')
+
+def install_packages(distro: str) -> bool:
+    if distro == "Ubuntu":
+        ok = True
+        ok = run_command("sudo apt install -y software-properties-common") and ok
+        ok = run_command("sudo add-apt-repository ppa:neovim-ppa/unstable") and ok
+        ok = run_command("sudo apt update") and ok
+        ok = run_command("sudo apt install -y neovim tmux ranger neofetch") and ok
+        return ok
+    if distro == "Arch":
+        return run_command("sudo pacman -S neovim tmux ranger neofetch --noconfirm")
+
+    print("Unsupported distro for package installation")
+    return False
 
 
-while True:
-    choose_install_core_packages = input('Do you want to install packages? [y/N] ').lower().strip()
-    if choose_install_core_packages in ['yes', 'y']:
-        print('Installing packages')
-        install_core_packages(distro)
-        break
-    if choose_install_core_packages in ['no', 'n', '']:
-        print('Skipping packages')
-        break
-    print('Invalid input. Please enter either "y" or "n", or leave input blank.')
+def install_firacode(distro: str, dotfiles_dir: str) -> bool:
+    if distro == "Ubuntu":
+        commands = [
+            "mkdir -p \"$HOME/.local/share/fonts\"",
+            "cd \"$HOME/.local/share/fonts\"",
+            "curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip",
+            "unzip FiraCode.zip -d \"$HOME/.local/share/fonts\"",
+            "rm FiraCode.zip",
+            "fc-cache -fv",
+        ]
+    elif distro == "Arch":
+        if shutil.which("yay"):
+            commands = [
+                "yay -S ttf-firacode-nerd",
+                "fc-cache -fv",
+            ]
+        else:
+            commands = [
+                "mkdir -p \"$HOME/.local/share/fonts\"",
+                "cd \"$HOME/.local/share/fonts\"",
+                "curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip",
+                "unzip FiraCode.zip -d \"$HOME/.local/share/fonts\"",
+                "rm FiraCode.zip",
+                "fc-cache -fv",
+            ]
+    else:
+        return False
 
-# while True:
-#     choose_install_optional_packages = input('Do you want to install packages? [y/N] ').lower().strip()
-#     if choose_install_optional_packages in ['yes', 'y']:
-#         print('Installing packages')
-#         install_core_packages(distro)
-#         break
-#     if choose_install_optional_packages in ['no', 'n', '']:
-#         print('Skipping packages')
-#         break
-#     print('Invalid input. Please enter either "y" or "n", or leave input blank.')
+    for cmd in commands:
+        if not run_command(cmd):
+            return False
 
-while True:
-    choose_run_stow = input('Do you want to run stow right now? [y/N] ').lower().strip()
-    if choose_run_stow in ['yes', 'y']:
-        print('Stowing files')
-        stow_files()
-        break
-    if choose_run_stow in ['no', 'n', '']:
-        print('You can run stow at any time by changing into the dotfiles folder')
-        print('and running \'stow .\'')
-        break
-    print('Invalid input. Please enter either "y" or "n", or leave input blank.')
+    return run_command(f'cd "{dotfiles_dir}"')
 
+
+def main() -> None:
+    dotfiles_dir = get_dotfiles_dir()
+    distro = detect_distro()
+
+    if distro == "Arch":
+        while True:
+            answer = input("Do you want to install yay? [y/N] ").lower().strip()
+            if answer in ["yes", "y"]:
+                if not install_yay(dotfiles_dir):
+                    print("yay installation failed")
+                break
+            if answer in ["no", "n", ""]:
+                print("Skipping yay installation")
+                break
+            print('Invalid input. Please enter either "y" or "n", or leave input blank.')
+
+    while True:
+        answer = input("Do you want to install dependencies? [y/N] ").lower().strip()
+        if answer in ["yes", "y"]:
+            print("Installing dependencies")
+            if not install_dependencies(distro):
+                print("Dependency installation failed. Skipping input method setup.")
+                break
+            if not setup_fcitx5_autostart():
+                break
+            print("Dependencies installed successfully!")
+            print(
+                "Log out and back in to apply input method environment variables in Wayland sessions."
+            )
+            maybe_set_default_zsh()
+            break
+        if answer in ["no", "n", ""]:
+            print("Skipping dependency installation")
+            break
+        print('Invalid input. Please enter either "y" or "n", or leave input blank.')
+
+    while True:
+        answer = input("Do you want to install packages? [y/N] ").lower().strip()
+        if answer in ["yes", "y"]:
+            print("Installing packages")
+            if install_packages(distro):
+                print("Packages installed successfully!")
+            else:
+                print("Package installation failed")
+            break
+        if answer in ["no", "n", ""]:
+            print("Skipping package installation")
+            break
+        print('Invalid input. Please enter either "y" or "n", or leave input blank.')
+
+    while True:
+        answer = input("Do you want to install FiraCode font? [y/N] ").lower().strip()
+        if answer in ["yes", "y"]:
+            print("Installing FiraCode")
+            if install_firacode(distro, dotfiles_dir):
+                print("FiraCode font installed successfully!")
+            else:
+                print("Failed to install FiraCode")
+            break
+        if answer in ["no", "n", ""]:
+            print("Skipping FiraCode installation")
+            break
+        print('Invalid input. Please enter either "y" or "n", or leave input blank.')
+
+
+if __name__ == "__main__":
+    main()

@@ -47,15 +47,51 @@ while true; do
   case "$install_deps" in
   [Yy]*)
     echo "Installing dependencies"
+    deps_ok=1
     if [ "$distro" = "Ubuntu" ]; then
-      sudo apt install -y git stow unzip nodejs npm zsh
+      sudo apt install -y git stow unzip nodejs npm zsh fcitx5 fcitx5-config-qt || deps_ok=0
     elif [ "$distro" = "Arch" ]; then
-      sudo pacman -S git stow unzip nodejs npm zsh
+      sudo pacman -S git stow unzip nodejs npm zsh fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt fcitx5-xkb --noconfirm || deps_ok=0
     #  RHEL/Fedora not implemented yet
     # elif [ "$distro" = "RHEL" ]; then
     #   sudo yum install -y git stow unzip nodejs npm zsh
+    else
+      deps_ok=0
+      echo "Unsupported distro for dependency installation"
     fi
+
+    if [ "$deps_ok" -ne 1 ]; then
+      echo "Dependency installation failed. Skipping input method setup."
+      break
+    fi
+
+    # Ensure fcitx5 starts automatically on KDE/Plasma sessions.
+    if ! mkdir -p "$HOME/.config/autostart"; then
+      echo "Failed to create autostart directory"
+      break
+    fi
+
+    if ! cat >"$HOME/.config/autostart/fcitx5.desktop" <<'EOF'
+[Desktop Entry]
+Name=Fcitx5
+GenericName=Input Method
+Comment=Start Input Method
+Exec=fcitx5
+Icon=fcitx5
+Terminal=false
+Type=Application
+Categories=System;Utility;
+X-GNOME-AutoRestart=false
+X-GNOME-Autostart-Phase=Applications
+X-KDE-autostart-after=panel
+EOF
+    then
+      echo "Failed to create fcitx5 autostart file"
+      break
+    fi
+
     echo "Dependencies installed successfully!"
+    echo "Log out and back in to apply input method environment variables in Wayland sessions."
     while true; do
       echo "Set zsh as default shell? [Y/n]"
       read set_default_zsh
@@ -92,17 +128,27 @@ while true; do
   case "$install_pkgs" in
   [Yy]*)
     echo "Installing packages"
+    pkgs_ok=1
     if [ "$distro" = "Ubuntu" ]; then
-      sudo apt install -y software-properties-common
-      sudo add-apt-repository ppa:neovim-ppa/unstable
-      sudo apt update
-      sudo apt install -y neovim tmux ranger neofetch
+      sudo apt install -y software-properties-common || pkgs_ok=0
+      sudo add-apt-repository ppa:neovim-ppa/unstable || pkgs_ok=0
+      sudo apt update || pkgs_ok=0
+      sudo apt install -y neovim tmux ranger neofetch || pkgs_ok=0
     elif [ "$distro" = "Arch" ]; then
-      sudo pacman -S neovim tmux ranger neofetch
+      sudo pacman -S neovim tmux ranger neofetch --noconfirm || pkgs_ok=0
     #  RHEL/Fedora not implemented yet
     # elif [ "$distro" = "RHEL" ]; then
     #   sudo yum install -y neovim tmux ranger neofetch
+    else
+      pkgs_ok=0
+      echo "Unsupported distro for package installation"
     fi
+
+    if [ "$pkgs_ok" -ne 1 ]; then
+      echo "Package installation failed"
+      break
+    fi
+
     echo "Packages installed successfully!"
     break
     ;;
