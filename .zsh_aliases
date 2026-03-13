@@ -49,3 +49,12 @@ alias branch='git branch'
 alias stash='git stash'
 alias log='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset" --date=short --abbrev-commit -10'
 
+## functions
+lddtk() {
+  ldd $(which "$1") | grep -Poi '\b(lib)?\K(gtk|qt)([^a-z/]*\d)*(?=[^/]*\.so\b)' | sort -u
+}
+
+# cd && ll
+cl() {
+  cd "$1" && ll
+}

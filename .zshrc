@@ -1,11 +1,11 @@
 # this used to be .zshenv
 if [[ ":$PATH:" != *"$HOME/bin"* ]]; then
   export PATH="$HOME/bin:$PATH"
-fi  
+fi
 
 if [[ ":$PATH:" != *"$HOME/.local/bin"* ]]; then
   export PATH="$HOME/.local/bin:$PATH"
-fi  
+fi
 
 # git config
 git config --global core.pager "less -F"
@@ -13,10 +13,10 @@ git config --global alias.lg "log --oneline --graph --decorate --all"
 
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
-eval "$(ssh-agent -s)" > /dev/null 2>&1
-ssh-add ~/.ssh/github > /dev/null 2>&1 
-ssh-add ~/.ssh/azure_repo > /dev/null 2>&1
-ssh-add ~/.ssh/tributei > /dev/null 2>&1
+eval "$(ssh-agent -s)" >/dev/null 2>&1
+ssh-add ~/.ssh/github >/dev/null 2>&1
+ssh-add ~/.ssh/azure_repo >/dev/null 2>&1
+ssh-add ~/.ssh/tributei >/dev/null 2>&1
 
 . "$HOME/.cargo/env"
 
@@ -30,12 +30,12 @@ ssh-add ~/.ssh/tributei > /dev/null 2>&1
 export ZSH="$HOME/.oh-my-zsh"
 
 # auto start tmux except on VS Code
-if command -v tmux &> /dev/null \
-   && [ -n "$PS1" ] \
-   && [[ ! "$TERM" =~ screen ]] \
-   && [[ ! "$TERM" =~ tmux ]] \
-   && [ -z "$TMUX" ] \
-   && [ -z "$VSCODE_IPC_HOOK_CLI" ]; then
+if command -v tmux &>/dev/null &&
+  [ -n "$PS1" ] &&
+  [[ ! "$TERM" =~ screen ]] &&
+  [[ ! "$TERM" =~ tmux ]] &&
+  [ -z "$TMUX" ] &&
+  [ -z "$VSCODE_IPC_HOOK_CLI" ]; then
   exec tmux
 fi
 
@@ -146,25 +146,20 @@ fi
 eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/catppuccin_mocha.omp.json)"
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
-if grep -q "microsoft" /proc/version > /dev/null 2>&1; then
-    if service docker status 2>&1 | grep -q "is not running"; then
-        wsl.exe --distribution "${WSL_DISTRO_NAME}" --user root \
-            --exec /usr/sbin/service docker start > /dev/null 2>&1
-    fi
+if grep -q "microsoft" /proc/version >/dev/null 2>&1; then
+  if service docker status 2>&1 | grep -q "is not running"; then
+    wsl.exe --distribution "${WSL_DISTRO_NAME}" --user root \
+      --exec /usr/sbin/service docker start >/dev/null 2>&1
+  fi
 fi
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-
-# cd && ll
-cl() {
-  cd "$1" && ll
-}
 
 # configures zsh-syntax-highlighting whether it's running on ubuntu or arch distros
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
