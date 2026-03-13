@@ -3,7 +3,6 @@ local util = lspconfig.util
 
 return {
   -- MASON
-  --
   {
     'mason-org/mason.nvim',
     opts = function(_, opts)
@@ -116,5 +115,23 @@ return {
         null_ls.builtins.formatting.black,
       })
     end,
+  },
+
+  -- CONFORM.NVIM
+  {
+    'stevearc/conform.nvim',
+    opts = {
+      formatters_by_ft = {
+        -- Adiciona suporte explícito para zsh
+        zsh = { 'shfmt' },
+        sh = { 'shfmt' },
+      },
+      formatters = {
+        shfmt = {
+          -- Opcional: Adicione argumentos extras como indentação de 2 espaços
+          prepend_args = { '-i', '2' },
+        },
+      },
+    },
   },
 }

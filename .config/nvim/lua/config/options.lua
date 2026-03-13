@@ -60,3 +60,9 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 })
 
 vim.g.snacks_animate = false
+
+vim.filetype.add({
+  extension = {
+    zsh = 'zsh',
+  },
+})
