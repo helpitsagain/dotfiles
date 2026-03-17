@@ -35,7 +35,9 @@ if command -v tmux &>/dev/null &&
   [[ ! "$TERM" =~ screen ]] &&
   [[ ! "$TERM" =~ tmux ]] &&
   [ -z "$TMUX" ] &&
-  [ -z "$VSCODE_IPC_HOOK_CLI" ]; then
+  [ "${TERM_PROGRAM:-}" != "vscode" ] &&
+  [ -z "${VSCODE_IPC_HOOK_CLI:-}" ] &&
+  [ -z "${VSCODE_INJECTION:-}" ]; then
   exec tmux
 fi
 
