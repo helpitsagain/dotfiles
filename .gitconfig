@@ -1,0 +1,8 @@
+[core]
+	pager = less -F
+	editor = nvim
+[alias]
+	lg = log --oneline --graph --decorate
+[user]
+	name = Lucas
+	email = lucmichels94@gmail.com
