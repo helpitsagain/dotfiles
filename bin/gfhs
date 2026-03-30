@@ -1,0 +1,40 @@
+#!/bin/bash
+
+echo "Buscando tags do origin..."
+git fetch --tags
+
+LAST_TAG=$(git tag -l | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n1)
+
+if [ -z "$LAST_TAG" ]; then
+    echo "Nenhuma tag encontrada. Iniciando com a versão 1.0.0"
+    NEXT_VERSION="1.0.0"
+else
+    echo "Última versão encontrada: $LAST_TAG"
+    
+    CLEAN_TAG=${LAST_TAG#v}
+    
+    IFS='.' read -r -a VERSION_PARTS <<< "$CLEAN_TAG"
+    PATCH=$((VERSION_PARTS[2] + 1))
+    NEXT_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.$PATCH"
+fi
+
+echo "Versão sugerida para o Hotfix: $NEXT_VERSION"
+
+HOTFIX_BRANCH="hotfix/$NEXT_VERSION"
+
+if git show-ref --verify --quiet "refs/heads/$HOTFIX_BRANCH"; then
+    echo "A branch $HOTFIX_BRANCH já existe localmente. Execução interrompida."
+    exit 1
+fi
+
+if git ls-remote --exit-code --heads origin "$HOTFIX_BRANCH" >/dev/null 2>&1; then
+    echo "A branch $HOTFIX_BRANCH já existe no origin. Execução interrompida."
+    exit 1
+fi
+
+git flow hotfix start "$NEXT_VERSION"
+
+echo "Publicando branch no origin..."
+git push -u origin "$HOTFIX_BRANCH"
+
+echo "Pronto! Você está na branch $HOTFIX_BRANCH"

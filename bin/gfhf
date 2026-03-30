@@ -1,0 +1,28 @@
+#!/bin/bash
+
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [[ $CURRENT_BRANCH != hotfix/* ]]; then
+  echo "Erro: Você não está em uma branch de hotfix (Ex: hotfix/xx.yy.zz)"
+  exit 1
+fi
+
+VERSION=${CURRENT_BRANCH#hotfix/}
+
+echo "Iniciando fechamento do hotfix versão: $VERSION"
+
+echo "Sincronizando branch atual com origin..."
+git push -u origin "$CURRENT_BRANCH"
+
+echo "Finalizando hotfix no Git Flow..."
+git flow hotfix finish "$VERSION"
+
+echo "Enviando alterações para o origin (develop, main e tags)..."
+
+git checkout develop
+git push origin develop
+
+git checkout main
+git push origin main --follow-tags
+
+echo "Hotfix $VERSION finalizado e enviado com sucesso!"
