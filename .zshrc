@@ -9,7 +9,7 @@ fi
 
 # git config
 git config --global core.pager "less -F"
-git config --global alias.lg "log --oneline --graph --decorate --all"
+git config --global alias.lg "log --oneline --graph --decorate"
 
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
