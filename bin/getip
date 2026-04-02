@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+IP=$(curl -s https://api.ipify.org)
+
+echo -n "$IP" | wl-copy
+
+echo "IP copiado: $IP"
