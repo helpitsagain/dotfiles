@@ -9,6 +9,7 @@ alias tsource='tmux source ~/.config/tmux/tmux.conf'
 alias tconf='nvim ~/.config/tmux/tmux.conf'
 
 ## aliases
+alias yay='yay -a'
 alias ..='cd ..'
 alias ~='cd ~'
 alias nf='neofetch'
