@@ -30,16 +30,16 @@ ssh-add ~/.ssh/tributei >/dev/null 2>&1
 export ZSH="$HOME/.oh-my-zsh"
 
 # auto start tmux except on VS Code
-if command -v tmux &>/dev/null &&
-  [ -n "$PS1" ] &&
-  [[ ! "$TERM" =~ screen ]] &&
-  [[ ! "$TERM" =~ tmux ]] &&
-  [ -z "$TMUX" ] &&
-  [ "${TERM_PROGRAM:-}" != "vscode" ] &&
-  [ -z "${VSCODE_IPC_HOOK_CLI:-}" ] &&
-  [ -z "${VSCODE_INJECTION:-}" ]; then
-  exec tmux
-fi
+# if command -v tmux &>/dev/null &&
+#   [ -n "$PS1" ] &&
+#   [[ ! "$TERM" =~ screen ]] &&
+#   [[ ! "$TERM" =~ tmux ]] &&
+#   [ -z "$TMUX" ] &&
+#   [ "${TERM_PROGRAM:-}" != "vscode" ] &&
+#   [ -z "${VSCODE_IPC_HOOK_CLI:-}" ] &&
+#   [ -z "${VSCODE_INJECTION:-}" ]; then
+#   exec tmux
+# fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
