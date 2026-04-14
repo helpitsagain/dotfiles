@@ -14,15 +14,23 @@ echo "Iniciando fechamento do hotfix versão: $VERSION"
 echo "Sincronizando branch atual com origin..."
 git push -u origin "$CURRENT_BRANCH"
 
+if [ -f .git/gitflow/state/merge.json ]; then
+  echo "Limpando estado anterior do Git Flow..."
+  rm -f .git/gitflow/state/merge.json
+fi
+
 echo "Finalizando hotfix no Git Flow..."
-git flow hotfix finish "$VERSION"
+if ! git flow hotfix finish "$VERSION"; then
+  echo "Erro ao finalizar hotfix"
+  exit 1
+fi
 
-echo "Enviando alterações para o origin (develop, main e tags)..."
+# echo "Enviando alterações para o origin (develop, main e tags)..."
+#
+# git checkout develop
+# git push origin develop
+#
+# git checkout main
+# git push origin main --follow-tags
 
-git checkout develop
-git push origin develop
-
-git checkout main
-git push origin main --follow-tags
-
-echo "Hotfix $VERSION finalizado e enviado com sucesso!"
+echo "Hotfix $VERSION finalizado com sucesso!"

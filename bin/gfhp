@@ -1,0 +1,12 @@
+
+#!/bin/bash
+
+echo "Enviando alterações para o origin (develop, main e tags)..."
+
+git checkout develop
+git push origin develop
+
+git checkout main
+git push origin main --follow-tags
+
+echo "Alterações publicadas!"
