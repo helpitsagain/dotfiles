@@ -1,9 +1,39 @@
 #!/bin/bash
 
-git checkout main
+set -u
+
+fail() {
+  echo "Erro: $1" >&2
+  exit 1
+}
+
+if ! command -v git >/dev/null 2>&1; then
+  fail "Git não está instalado no ambiente."
+fi
+
+if ! command -v git-flow >/dev/null 2>&1; then
+  fail "git-flow não está instalado. Instale-o e tente novamente."
+fi
+
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || fail "Este diretório não é um repositório Git."
+
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  fail "Há mudanças não commitadas. Faça commit/stash antes de iniciar o hotfix."
+fi
+
+if [ "$(git config --get gitflow.initialized 2>/dev/null || true)" != "true" ]; then
+  fail "git flow não está inicializado (execute 'git flow init')."
+fi
+
+BASE_BRANCH=$(git config --get gitflow.branch.hotfix.startpoint 2>/dev/null || true)
+if [ -z "$BASE_BRANCH" ]; then
+  BASE_BRANCH="main"
+fi
+
+git checkout "$BASE_BRANCH" || fail "Não foi possível mudar para a branch $BASE_BRANCH."
 
 echo "Buscando tags do origin..."
-git fetch --tags
+git fetch --tags || fail "Falha ao buscar tags do origin."
 
 LAST_TAG=$(git tag -l | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n1)
 
@@ -34,9 +64,13 @@ if git ls-remote --exit-code --heads origin "$HOTFIX_BRANCH" >/dev/null 2>&1; th
   exit 1
 fi
 
-git flow hotfix start "$NEXT_VERSION"
+if ! git flow hotfix start "$NEXT_VERSION"; then
+  fail "Falha ao iniciar hotfix com git flow."
+fi
 
 echo "Publicando branch no origin..."
-git push -u origin "$HOTFIX_BRANCH"
+if ! git push -u origin "$HOTFIX_BRANCH"; then
+  fail "Falha ao publicar a branch $HOTFIX_BRANCH no origin."
+fi
 
 echo "Pronto! Você está na branch $HOTFIX_BRANCH"
