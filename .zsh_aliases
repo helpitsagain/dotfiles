@@ -44,6 +44,7 @@ alias lzg='lazygit'
 alias n='nvim'
 alias y='yazi'
 alias cls="clear"
+alias tmatrix="tmatrix -c default --title=' '"
 # if command -v bat >/dev/null 2>&1; then
 #   alias cat='bat'
 # elif command -v batcat >/dev/null 2>&1; then
