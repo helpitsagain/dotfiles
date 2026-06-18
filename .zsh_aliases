@@ -74,3 +74,15 @@ lddtk() {
 cl() {
   cd "$1" && ll
 }
+
+getip() {
+  IP=$(curl -s https://api.ipify.org)
+
+  echo -n "$IP" | wl-copy
+
+  echo "IP copiado: $IP"
+}
+
+oct() {
+  OPENCODE_CONFIG=$HOME/projetos/tributei/profiles/$1.json opencode
+}
