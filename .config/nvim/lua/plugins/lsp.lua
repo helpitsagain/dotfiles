@@ -107,15 +107,15 @@ return {
   },
 
   -- NONE-LS
-  {
-    'nvimtools/none-ls.nvim',
-    opts = function(_, opts)
-      local null_ls = require('null-ls')
-      vim.list_extend(opts.sources, {
-        null_ls.builtins.formatting.black,
-      })
-    end,
-  },
+  -- {
+  --   'nvimtools/none-ls.nvim',
+  --   opts = function(_, opts)
+  --     local null_ls = require('null-ls')
+  --     vim.list_extend(opts.sources, {
+  --       null_ls.builtins.formatting.black,
+  --     })
+  --   end,
+  -- },
 
   -- CONFORM.NVIM
   {
