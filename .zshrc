@@ -20,6 +20,8 @@ ssh-add ~/.ssh/tributei >/dev/null 2>&1
 
 . "$HOME/.cargo/env"
 
+export EDITOR="$(which nvim)"
+
 # set keyboard layout to us-intl in arch linux/i3wm (can't quite remember which)
 # setxkbmap us -variant intl
 
