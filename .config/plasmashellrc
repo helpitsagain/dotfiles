@@ -1,5 +1,5 @@
 [PIMEventsPlugin]
-calendars=8,11,12,13,14,34,35
+calendars=8,11,12,13,14,34,35,39
 
 [PlasmaViews][Panel 27]
 floating=1
@@ -7,28 +7,6 @@ panelOpacity=0
 
 [PlasmaViews][Panel 27][Defaults]
 thickness=30
-
-[PlasmaViews][Panel 3]
-floating=1
-panelLengthMode=1
-panelVisibility=2
-
-[PlasmaViews][Panel 3][Defaults]
-thickness=52
-
-[PlasmaViews][Panel 63]
-alignment=132
-floating=1
-panelLengthMode=0
-
-[PlasmaViews][Panel 63][Defaults]
-thickness=30
-
-[PlasmaViews][Panel 93]
-floating=1
-
-[PlasmaViews][Panel 93][Defaults]
-thickness=34
 
 [PlasmaViews][Panel 94]
 floating=1
