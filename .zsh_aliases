@@ -83,6 +83,11 @@ getip() {
   echo "IP copiado: $IP"
 }
 
+browse() {
+  dolphin "${1:-.}" >/dev/null 2>&1 &
+  disown
+}
+
 oct() {
   OPENCODE_CONFIG=$HOME/projetos/tributei/profiles/$1.json opencode
 }

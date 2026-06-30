@@ -1,17 +1,24 @@
+[General]
+Number of Actions=0
+
+[Notification Messages]
+klipperClearHistoryStarredChoice=false
+
 [PIMEventsPlugin]
 calendars=8,11,12,13,14,34,35,39
+
+[PlasmaViews][Panel 201]
+floating=1
+panelOpacity=0
+
+[PlasmaViews][Panel 201][Defaults]
+thickness=30
 
 [PlasmaViews][Panel 27]
 floating=1
 panelOpacity=0
 
 [PlasmaViews][Panel 27][Defaults]
-thickness=30
-
-[PlasmaViews][Panel 94]
-floating=1
-
-[PlasmaViews][Panel 94][Defaults]
 thickness=30
 
 [Updates]

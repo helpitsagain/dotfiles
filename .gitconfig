@@ -8,3 +8,10 @@
 	email = lucmichels94@gmail.com
 [init]
 	defaultBranch = main
+[gitflow "feature.finish"]
+	keepremote = true
+	nokeeplocal = true
+[credencial]
+	helper = store
+[credential]
+	helper = store
