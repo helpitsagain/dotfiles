@@ -89,5 +89,9 @@ browse() {
 }
 
 oct() {
-  OPENCODE_CONFIG=$HOME/projetos/tributei/profiles/$1.json opencode
+  OPENCODE_CONFIG=$HOME/projetos/tributei/profiles/${1:-default}.json opencode
+}
+
+ssh-tunnel() {
+  ssh -i /home/luc/.ssh/google_compute_engine -D 5001 -C -N luc@34.173.209.81
 }
