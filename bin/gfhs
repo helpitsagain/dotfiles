@@ -33,7 +33,10 @@ fi
 git checkout "$BASE_BRANCH" || fail "Não foi possível mudar para a branch $BASE_BRANCH."
 
 echo "Buscando tags do origin..."
-git fetch --tags || fail "Falha ao buscar tags do origin."
+if ! git fetch --tags 2>&1; then
+  echo "Detectado conflito de tags. Forçando atualização..."
+  git fetch --tags --force || fail "Falha ao buscar tags do origin."
+fi
 
 LAST_TAG=$(git tag -l | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n1)
 
